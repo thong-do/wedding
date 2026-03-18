@@ -27,9 +27,9 @@ export function RSVP() {
 
   const validate = (): boolean => {
     const newErrors: Partial<Record<keyof FormData, string>> = {};
-    if (!formData.name.trim()) newErrors.name = "Please enter your name";
-    if (!formData.phone.trim()) newErrors.phone = "Please enter your phone number";
-    if (!formData.attendance) newErrors.attendance = "Please confirm attendance";
+    if (!formData.name.trim()) newErrors.name = "Vui lòng nhập tên của bạn";
+    if (!formData.phone.trim()) newErrors.phone = "Vui lòng nhập số điện thoại của bạn";
+    if (!formData.attendance) newErrors.attendance = "Vui lòng xác nhận sự tham dự";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -48,7 +48,7 @@ export function RSVP() {
 
   if (submitted) {
     return (
-      <section className="relative bg-stone-50 px-4 py-16 sm:px-6 sm:py-24 md:py-32">
+      <section className="relative bg-stone-50 px-2 py-12 sm:px-6 sm:py-24 md:py-32">
         <div className="mx-auto max-w-xl text-center">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
@@ -58,10 +58,10 @@ export function RSVP() {
             <Check className="text-amber-800" size={48} />
           </motion.div>
           <h2 className="font-serif text-2xl text-stone-800">
-            Thank you for your response!
+            Cảm ơn đã phản hồi!
           </h2>
           <p className="mt-4 font-sans text-stone-600">
-            We&apos;re so excited to celebrate with you.
+            Hẹn gặp lại ở lễ cưới.
           </p>
         </div>
       </section>
@@ -71,7 +71,7 @@ export function RSVP() {
   return (
     <section
       id="rsvp"
-      className="relative bg-stone-50 px-4 py-16 sm:px-6 sm:py-24 md:py-32"
+      className="relative bg-stone-50 px-2 py-12 sm:px-6 sm:py-24 md:py-32"
     >
       <div className="mx-auto max-w-xl">
         <motion.h2
@@ -80,7 +80,7 @@ export function RSVP() {
           viewport={{ once: true }}
           className="font-serif text-3xl font-light text-stone-800 md:text-4xl"
         >
-          RSVP
+          Phản hồi
         </motion.h2>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -89,7 +89,7 @@ export function RSVP() {
           transition={{ delay: 0.1 }}
           className="mt-2 font-sans text-stone-600"
         >
-          Please let us know if you can join us
+          Vui lòng cho chúng tôi biết nếu bạn có thể tham dự.
         </motion.p>
 
         <motion.form
@@ -102,7 +102,7 @@ export function RSVP() {
         >
           <div>
             <label htmlFor="name" className="block font-sans text-sm font-medium text-stone-700">
-              Full Name *
+              Tên đầy đủ *
             </label>
             <input
               id="name"
@@ -110,7 +110,7 @@ export function RSVP() {
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               className="mt-2 w-full rounded-full border border-stone-300 bg-white px-5 py-3 font-sans text-stone-800 placeholder-stone-400 focus:border-amber-800/50 focus:outline-none focus:ring-1 focus:ring-amber-800/30"
-              placeholder="Your full name"
+              placeholder="Tên đầy đủ của bạn"
             />
             {errors.name && (
               <p className="mt-1 text-sm text-red-600">{errors.name}</p>
@@ -119,7 +119,7 @@ export function RSVP() {
 
           <div>
             <label htmlFor="phone" className="block font-sans text-sm font-medium text-stone-700">
-              Phone Number *
+              Số điện thoại *
             </label>
             <input
               id="phone"
@@ -127,7 +127,7 @@ export function RSVP() {
               value={formData.phone}
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
               className="mt-2 w-full rounded-full border border-stone-300 bg-white px-5 py-3 font-sans text-stone-800 placeholder-stone-400 focus:border-amber-800/50 focus:outline-none focus:ring-1 focus:ring-amber-800/30"
-              placeholder="Your phone number"
+              placeholder="Số điện thoại của bạn"
             />
             {errors.phone && (
               <p className="mt-1 text-sm text-red-600">{errors.phone}</p>
@@ -136,7 +136,7 @@ export function RSVP() {
 
           <div>
             <label className="block font-sans text-sm font-medium text-stone-700">
-              Will you attend? *
+              Bạn có tham dự không? *
             </label>
             <div className="mt-2 flex flex-col gap-3 sm:flex-row sm:gap-4">
               <label className="flex min-h-[44px] cursor-pointer items-center gap-3 rounded-lg border border-stone-200 bg-white px-4 py-3 has-[:checked]:border-amber-800/50 has-[:checked]:bg-amber-50/50 sm:border-0 sm:bg-transparent sm:py-0">
@@ -147,7 +147,7 @@ export function RSVP() {
                   onChange={() => setFormData({ ...formData, attendance: "yes" })}
                   className="h-5 w-5 shrink-0 text-amber-800 focus:ring-amber-800"
                 />
-                <span className="font-sans text-stone-700">Yes, I&apos;ll be there</span>
+                <span className="font-sans text-stone-700">Có chứ</span>
               </label>
               <label className="flex min-h-[44px] cursor-pointer items-center gap-3 rounded-lg border border-stone-200 bg-white px-4 py-3 has-[:checked]:border-amber-800/50 has-[:checked]:bg-amber-50/50 sm:border-0 sm:bg-transparent sm:py-0">
                 <input
@@ -157,7 +157,7 @@ export function RSVP() {
                   onChange={() => setFormData({ ...formData, attendance: "no" })}
                   className="h-5 w-5 shrink-0 text-amber-800 focus:ring-amber-800"
                 />
-                <span className="font-sans text-stone-700">Sorry, I can&apos;t make it</span>
+                <span className="font-sans text-stone-700">Không thể không đi</span>
               </label>
             </div>
             {errors.attendance && (
@@ -167,7 +167,7 @@ export function RSVP() {
 
           <div>
             <label htmlFor="guests" className="block font-sans text-sm font-medium text-stone-700">
-              Number of Guests
+              Số lượng khách
             </label>
             <select
               id="guests"
@@ -185,7 +185,7 @@ export function RSVP() {
 
           <div>
             <label htmlFor="notes" className="block font-sans text-sm font-medium text-stone-700">
-              Notes
+              Ghi chú
             </label>
             <textarea
               id="notes"
@@ -193,7 +193,7 @@ export function RSVP() {
               value={formData.notes}
               onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
               className="mt-2 w-full rounded-2xl border border-stone-300 bg-white px-5 py-3 font-sans text-stone-800 placeholder-stone-400 focus:border-amber-800/50 focus:outline-none focus:ring-1 focus:ring-amber-800/30"
-              placeholder="Dietary requirements, special requests..."
+              placeholder="Có điều gì muốn chia sẻ thêm không?"
             />
           </div>
 
@@ -202,7 +202,7 @@ export function RSVP() {
             className="flex min-h-[48px] w-full items-center justify-center gap-2 rounded-full bg-amber-900 px-6 py-4 font-sans text-sm uppercase tracking-wider text-white transition-colors hover:bg-amber-800 active:bg-amber-800"
           >
             <Send size={18} />
-            Send RSVP
+            Gửi phản hồi
           </button>
         </motion.form>
       </div>

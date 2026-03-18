@@ -99,21 +99,21 @@ export function Hero() {
             className="flex min-h-[44px] w-full min-w-[140px] max-w-[280px] items-center justify-center gap-2 rounded-full border border-white/60 bg-white/10 px-6 py-3 font-sans text-sm uppercase tracking-wider text-white backdrop-blur-sm transition-all hover:bg-white/20 hover:border-white/80 sm:w-auto sm:max-w-none active:bg-white/20"
           >
             <Calendar size={18} />
-            View Details
+            Xem chi tiết
           </button>
           <button
             onClick={() => scrollToSection("venue")}
             className="flex min-h-[44px] w-full min-w-[140px] max-w-[280px] items-center justify-center gap-2 rounded-full border border-white/60 bg-white/10 px-6 py-3 font-sans text-sm uppercase tracking-wider text-white backdrop-blur-sm transition-all hover:bg-white/20 hover:border-white/80 sm:w-auto sm:max-w-none active:bg-white/20"
           >
             <MapPin size={18} />
-            View Location
+            Xem vị trí
           </button>
           <button
             onClick={() => scrollToSection("rsvp")}
             className="flex min-h-[44px] w-full min-w-[140px] max-w-[280px] items-center justify-center gap-2 rounded-full bg-amber-900/80 px-6 py-3 font-sans text-sm uppercase tracking-wider text-white backdrop-blur-sm transition-all hover:bg-amber-800/90 sm:w-auto sm:max-w-none active:bg-amber-800/90"
           >
             <Send size={18} />
-            RSVP
+            Phản hồi
           </button>
         </motion.div>
       </div>
@@ -128,7 +128,7 @@ export function Hero() {
         <button
           onClick={() => scrollToSection("intro")}
           className="flex flex-col items-center gap-1 text-white/70 transition-colors hover:text-white"
-          aria-label="Scroll to next section"
+          aria-label="Cuộn xuống phần tiếp theo"
         >
           <ChevronDown size={32} className="animate-pulse" />
         </button>

@@ -11,11 +11,11 @@ const galleryLayout = [
   { col: "col-span-1", aspect: "aspect-[3/4]", i: 0 },
   { col: "col-span-1", aspect: "aspect-[3/4]", i: 1 },
   { col: "col-span-1", aspect: "aspect-[3/4]", i: 2 },
-  { col: "col-span-2 md:col-span-3", aspect: "aspect-[4/3]", i: 3 },
+  { col: "col-span-3", aspect: "aspect-[4/3]", i: 3 },
   { col: "col-span-1", aspect: "aspect-[3/4]", i: 4 },
   { col: "col-span-1", aspect: "aspect-[3/4]", i: 5 },
   { col: "col-span-1", aspect: "aspect-[3/4]", i: 6 },
-  { col: "col-span-2 md:col-span-3", aspect: "aspect-[4/3]", i: 7 },
+  { col: "col-span-3", aspect: "aspect-[4/3]", i: 7 },
   { col: "col-span-1", aspect: "aspect-[3/4]", i: 8 },
   { col: "col-span-1", aspect: "aspect-[3/4]", i: 9 },
   { col: "col-span-1", aspect: "aspect-[3/4]", i: 10 },
@@ -27,7 +27,7 @@ export function PhotoGallery() {
   return (
     <section
       id="gallery"
-      className="relative bg-stone-100 px-4 py-16 sm:px-6 sm:py-24 md:py-32"
+      className="relative bg-stone-100 px-2 py-12 sm:px-6 sm:py-24 md:py-32"
     >
       <div className="mx-auto max-w-6xl">
         <motion.h2
@@ -36,7 +36,7 @@ export function PhotoGallery() {
           viewport={{ once: true }}
           className="font-serif text-3xl font-light text-stone-800 md:text-4xl"
         >
-          Moments
+          Kỷ niệm
         </motion.h2>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -45,11 +45,11 @@ export function PhotoGallery() {
           transition={{ delay: 0.1 }}
           className="mt-2 font-sans text-stone-600"
         >
-          A visual narrative of our journey
+          Kỷ niệm của chúng tôi
         </motion.p>
 
         {/* Editorial grid */}
-        <div className="mt-8 grid grid-cols-2 gap-1.5 sm:mt-12 sm:gap-2 md:grid-cols-3 md:gap-4">
+        <div className="mt-6 grid grid-cols-3 gap-0.5 sm:mt-12 sm:gap-2 md:gap-4">
           {galleryLayout.map(({ col, aspect, i }, idx) => {
             const src = weddingData.gallery[i % weddingData.gallery.length];
             return (
@@ -68,7 +68,7 @@ export function PhotoGallery() {
                   fill
                   unoptimized
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  sizes="(max-width: 768px) 50vw, 33vw"
+                  sizes="(max-width: 768px) 33vw, 33vw"
                 />
                 <div className="absolute inset-0 bg-stone-900/0 transition-colors duration-300 group-hover:bg-stone-900/20" />
               </motion.button>

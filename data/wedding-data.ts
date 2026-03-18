@@ -24,11 +24,22 @@ export interface WeddingData {
   };
   timeline: TimelineItem[];
   venue: {
-    name: string;
-    address: string;
-    googleMapsUrl: string;
-    embedUrl: string;
-    notes?: string;
+    bride: {
+      label: string;
+      name: string;
+      address: string;
+      googleMapsUrl: string;
+      embedUrl: string;
+      notes?: string;
+    };
+    groom: {
+      label: string;
+      name: string;
+      address: string;
+      googleMapsUrl: string;
+      embedUrl: string;
+      notes?: string;
+    };
   };
   story: {
     intro: string;
@@ -51,26 +62,37 @@ export const weddingData: WeddingData = {
   },
   date: "18/04/2026",
   schedule: {
-    ceremonyTime: "18:00",
-    receptionTime: "18:30",
-    dressCode: "Smart casual",
-    notes: "Dinner and celebration to follow",
+    ceremonyTime: "7:00",
+    receptionTime: "10:00",
+    dressCode: "Trang phục lịch sự",
+    // notes: "Ăn trưa và tiệc tiếp theo",
   },
   timeline: [
-    { time: "17:00", title: "Guest Arrival" },
-    { time: "18:00", title: "Ceremony" },
-    { time: "18:30", title: "Reception" },
-    { time: "20:30", title: "Celebration" },
+    { time: "7:00", title: "Đón dâu và làm lễ tại nhà gái" },
+    { time: "10:00", title: "Về làm lễ tại nhà trai" },
+    { time: "10:30", title: "Ăn tiệc" },
+    { time: "11:30", title: "Chụp ảnh" },
   ],
   venue: {
-    name: "[Venue Name]",
-    address: "[Full Address]",
-    googleMapsUrl: "https://maps.google.com",
-    embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3691.5530000000003!2d114.1577!3d22.2783!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjLCsDE2JzQxLjkiTiAxMTTCsDA5JzI3LjciRQ!5e0!3m2!1sen!2shk!4v1234567890",
-    notes: "Parking available. Entrance on ground floor.",
+    bride: {
+      label: "Nhà gái",
+      name: "Bắc Ninh",
+      address: "Số nhà 79 làn 2 đường Thiên Đức phường Kinh Bắc, tỉnh Bắc Ninh",
+      googleMapsUrl: "https://maps.app.goo.gl/j3X3ctoRdDovUFwY9",
+      embedUrl: "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3720.030583853484!2d106.05028607544328!3d21.19094398049923!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjHCsDExJzI3LjQiTiAxMDbCsDAzJzEwLjMiRQ!5e0!3m2!1svi!2s!4v1773807220953!5m2!1svi!2s",
+      notes: "Có chỗ đậu xe. Vào cổng chính.",
+    },
+    groom: {
+      label: "Nhà trai",
+      name: "Hà Nội",
+      address: "Nhà văn hoá thôn Phú Mỹ, thôn Phú Mỹ, xã Kiều Phú, Hà Nội",
+      googleMapsUrl: "https://maps.app.goo.gl/iKXrngru3EJx1hzd8",
+      embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1081.6607707404046!2d105.62506169375344!3d20.986188516916233!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3134510055625b63%3A0xbb3bbea8b8b8746d!2zTmjDoCBWxINuIEjDs2EgVGjDtG4gUGjDuiBN4bu5!5e0!3m2!1svi!2s!4v1773806676251!5m2!1svi!2s",
+      notes: "Có chỗ đậu xe. Vào cổng chính.",
+    },
   },
   story: {
-    intro: "Our story began in the city — among neon reflections, late-night walks, and the quiet moments between the chaos. Hong Kong taught us that love can bloom anywhere, even in the busiest corners of the world. This celebration is our way of sharing that journey with you.",
+    intro: "TODO: Câu chuyện của chúng tôi",
     images: [
       "https://i.ibb.co/kCVXN24/3-DA6-E9-CB-0572-42-B6-9-CAE-08386-A1-A0674-1-105-c.jpg",
       "https://i.ibb.co/7JMGM1Zg/358-D56-CE-0-E41-45-BE-9-FB2-611-D1-B688553-1-105-c.jpg",
@@ -95,8 +117,8 @@ export const weddingData: WeddingData = {
     "https://i.ibb.co/zhH9tHjN/1-F74-AD22-D949-4-CC6-BA54-723-B3-FB5-CF67-1-105-c.jpg",
   ],
   ending: {
-    thankYou: "Thank you for being part of our story.",
-    finalLine: "We can't wait to celebrate with you.",
+    thankYou: "Cảm ơn đã đến dự lễ cưới của chúng tôi.",
+    finalLine: "Hẹn gặp lại ở nhà gái và nhà trai.",
     image: "https://i.ibb.co/YTyHwwtZ/65-C569-E0-0250-4252-A8-DC-911906-F3-EA74-1-102-a.jpg",
   },
 };

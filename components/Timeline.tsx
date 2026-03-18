@@ -7,7 +7,7 @@ export function Timeline() {
   return (
     <section
       id="timeline"
-      className="relative bg-stone-50 px-4 py-16 sm:px-6 sm:py-24 md:py-32"
+      className="relative bg-stone-50 px-2 py-12 sm:px-6 sm:py-24 md:py-32"
     >
       <div className="mx-auto max-w-2xl">
         <motion.h2
@@ -16,7 +16,7 @@ export function Timeline() {
           viewport={{ once: true }}
           className="font-serif text-3xl font-light text-stone-800 md:text-4xl"
         >
-          Day Schedule
+          Lịch trình
         </motion.h2>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -25,7 +25,7 @@ export function Timeline() {
           transition={{ delay: 0.1 }}
           className="mt-2 font-sans text-stone-600"
         >
-          Our wedding day itinerary
+          Lịch trình lễ cưới của chúng tôi
         </motion.p>
 
         {/* Timeline - transit line inspired */}

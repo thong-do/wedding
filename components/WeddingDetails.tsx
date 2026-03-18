@@ -8,7 +8,7 @@ export function WeddingDetails() {
   return (
     <section
       id="details"
-      className="relative bg-stone-200/50 px-4 py-16 sm:px-6 sm:py-24 md:py-32"
+      className="relative bg-stone-200/50 px-2 py-12 sm:px-6 sm:py-24 md:py-32"
     >
       <div className="mx-auto max-w-4xl">
         <motion.h2
@@ -17,7 +17,7 @@ export function WeddingDetails() {
           viewport={{ once: true }}
           className="font-serif text-3xl font-light text-stone-800 md:text-4xl"
         >
-          Wedding Details
+          Chi tiết lễ cưới
         </motion.h2>
 
         <div className="mt-8 grid gap-4 sm:mt-12 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -30,7 +30,7 @@ export function WeddingDetails() {
           >
             <Calendar className="mb-3 text-amber-800/80" size={24} />
             <h3 className="font-sans text-xs uppercase tracking-wider text-stone-500">
-              Date
+              Ngày
             </h3>
             <p className="mt-1 font-serif text-lg text-stone-800">
               {weddingData.date}
@@ -46,7 +46,7 @@ export function WeddingDetails() {
           >
             <Clock className="mb-3 text-amber-800/80" size={24} />
             <h3 className="font-sans text-xs uppercase tracking-wider text-stone-500">
-              Ceremony
+              Lễ tại nhà gái
             </h3>
             <p className="mt-1 font-serif text-lg text-stone-800">
               {weddingData.schedule.ceremonyTime}
@@ -62,7 +62,7 @@ export function WeddingDetails() {
           >
             <Clock className="mb-3 text-amber-800/80" size={24} />
             <h3 className="font-sans text-xs uppercase tracking-wider text-stone-500">
-              Reception
+              Lễ tại nhà trai
             </h3>
             <p className="mt-1 font-serif text-lg text-stone-800">
               {weddingData.schedule.receptionTime}
@@ -79,7 +79,7 @@ export function WeddingDetails() {
             >
               <Shirt className="mb-3 text-amber-800/80" size={24} />
               <h3 className="font-sans text-xs uppercase tracking-wider text-stone-500">
-                Dress Code
+                Trang phục
               </h3>
               <p className="mt-1 font-serif text-lg text-stone-800">
                 {weddingData.schedule.dressCode}

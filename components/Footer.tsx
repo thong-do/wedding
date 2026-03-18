@@ -9,7 +9,7 @@ export function Footer() {
     <footer className="relative overflow-hidden">
       {/* Optional final image */}
       {weddingData.ending.image && (
-        <div className="relative h-[40vh] min-h-[200px] w-full sm:h-[50vh] sm:min-h-[300px]">
+        <div className="relative h-[55vh] min-h-[280px] w-full sm:h-[50vh] sm:min-h-[300px]">
           <Image
             src={weddingData.ending.image}
             alt=""
