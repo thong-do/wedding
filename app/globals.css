@@ -32,9 +32,10 @@ body {
   font-family: var(--font-serif);
 }
 
-/* Smooth scroll behavior */
+/* Smooth scroll behavior - calm, invitation-like pacing */
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 2rem;
 }
 
 /* Custom selection */

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { ChevronDown, MapPin, Calendar, Send } from "lucide-react";
 import { weddingData } from "@/data/wedding-data";
 
@@ -22,48 +22,45 @@ export function Hero() {
 
   return (
     <section className="relative h-screen w-full overflow-hidden">
-      {/* Background slideshow */}
       <div className="absolute inset-0">
-        <AnimatePresence mode="wait">
-          {weddingData.heroImages.map((src, i) =>
-            i === currentSlide ? (
-              <motion.div
-                key={src}
-                initial={{ opacity: 0, scale: 1.05 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 1.5, ease: "easeInOut" }}
-                className="absolute inset-0"
-              >
-                <Image
-                  src={src}
-                  alt="Wedding"
-                  fill
-                  unoptimized
-                  className="object-cover"
-                  priority
-                  sizes="100vw"
-                />
-              </motion.div>
-            ) : null
-          )}
-        </AnimatePresence>
+        {/* Render all images so they preload; only current slide is visible */}
+        {weddingData.heroImages.map((src, i) => (
+          <motion.div
+            key={src}
+            initial={false}
+            animate={{ opacity: i === currentSlide ? 1 : 0 }}
+            transition={{ duration: 2, ease: "easeInOut" }}
+            className="absolute inset-0"
+            style={{ pointerEvents: i === currentSlide ? "auto" : "none" }}
+          >
+            <Image
+              src={src}
+              alt="Wedding"
+              fill
+              unoptimized
+              className="object-cover"
+              priority
+              sizes="100vw"
+            />
+          </motion.div>
+        ))}
       </div>
 
-      {/* Overlay gradient */}
       <div
         className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/70"
         aria-hidden
       />
 
-      {/* Content */}
       <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.3 }}
+          transition={{ duration: 1.2, delay: 0.4 }}
           className="max-w-4xl"
         >
+          <p className="mb-4 font-sans text-sm tracking-[0.3em] text-white/80 sm:mb-6 sm:text-base">
+            {weddingData.labels.ceremonialInvite}
+          </p>
           <h1 className="font-serif text-3xl font-light tracking-wide text-white drop-shadow-lg sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
             <span className="block sm:inline">{weddingData.couple.bride}</span>
             <span className="mx-2 sm:mx-3 text-amber-200/90">×</span>
@@ -72,7 +69,7 @@ export function Hero() {
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.8 }}
+            transition={{ duration: 0.8, delay: 0.9 }}
             className="mt-4 font-sans text-lg tracking-widest text-white/90 sm:text-xl"
           >
             {weddingData.date}
@@ -80,45 +77,43 @@ export function Hero() {
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 1 }}
+            transition={{ duration: 0.8, delay: 1.1 }}
             className="mt-2 font-serif text-base italic text-amber-100/90 sm:text-lg"
           >
-            {weddingData.couple.tagline}
+            {weddingData.hero.tagline}
           </motion.p>
         </motion.div>
 
-        {/* CTA Buttons */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2 }}
-          className="mt-8 flex flex-col items-center gap-3 px-2 sm:mt-12 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 1.4 }}
+          className="mt-10 flex flex-col items-center gap-3 px-2 sm:mt-14 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-4"
         >
           <button
             onClick={() => scrollToSection("details")}
-            className="flex min-h-[44px] w-full min-w-[140px] max-w-[280px] items-center justify-center gap-2 rounded-full border border-white/60 bg-white/10 px-6 py-3 font-sans text-sm uppercase tracking-wider text-white backdrop-blur-sm transition-all hover:bg-white/20 hover:border-white/80 sm:w-auto sm:max-w-none active:bg-white/20"
+            className="flex min-h-[44px] w-full min-w-[140px] max-w-[280px] items-center justify-center gap-2 rounded-full border border-white/50 bg-white/5 px-6 py-3 font-sans text-sm tracking-wide text-white backdrop-blur-sm transition-all duration-300 hover:bg-white/15 hover:border-white/60 sm:w-auto sm:max-w-none active:bg-white/20"
           >
             <Calendar size={18} />
-            Xem chi tiết
+            {weddingData.hero.cta.details}
           </button>
           <button
             onClick={() => scrollToSection("venue")}
-            className="flex min-h-[44px] w-full min-w-[140px] max-w-[280px] items-center justify-center gap-2 rounded-full border border-white/60 bg-white/10 px-6 py-3 font-sans text-sm uppercase tracking-wider text-white backdrop-blur-sm transition-all hover:bg-white/20 hover:border-white/80 sm:w-auto sm:max-w-none active:bg-white/20"
+            className="flex min-h-[44px] w-full min-w-[140px] max-w-[280px] items-center justify-center gap-2 rounded-full border border-white/50 bg-white/5 px-6 py-3 font-sans text-sm tracking-wide text-white backdrop-blur-sm transition-all duration-300 hover:bg-white/15 hover:border-white/60 sm:w-auto sm:max-w-none active:bg-white/20"
           >
             <MapPin size={18} />
-            Xem vị trí
+            {weddingData.hero.cta.location}
           </button>
           <button
             onClick={() => scrollToSection("rsvp")}
-            className="flex min-h-[44px] w-full min-w-[140px] max-w-[280px] items-center justify-center gap-2 rounded-full bg-amber-900/80 px-6 py-3 font-sans text-sm uppercase tracking-wider text-white backdrop-blur-sm transition-all hover:bg-amber-800/90 sm:w-auto sm:max-w-none active:bg-amber-800/90"
+            className="flex min-h-[44px] w-full min-w-[140px] max-w-[280px] items-center justify-center gap-2 rounded-full bg-amber-900/70 px-6 py-3 font-sans text-sm tracking-wide text-white backdrop-blur-sm transition-all duration-300 hover:bg-amber-800/80 sm:w-auto sm:max-w-none active:bg-amber-800/90"
           >
             <Send size={18} />
-            Phản hồi
+            {weddingData.hero.cta.rsvp}
           </button>
         </motion.div>
       </div>
 
-      {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -128,7 +123,7 @@ export function Hero() {
         <button
           onClick={() => scrollToSection("intro")}
           className="flex flex-col items-center gap-1 text-white/70 transition-colors hover:text-white"
-          aria-label="Cuộn xuống phần tiếp theo"
+          aria-label="Cuộn xuống"
         >
           <ChevronDown size={32} className="animate-pulse" />
         </button>

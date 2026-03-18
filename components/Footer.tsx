@@ -7,7 +7,6 @@ import { weddingData } from "@/data/wedding-data";
 export function Footer() {
   return (
     <footer className="relative overflow-hidden">
-      {/* Optional final image */}
       {weddingData.ending.image && (
         <div className="relative h-[55vh] min-h-[280px] w-full sm:h-[50vh] sm:min-h-[300px]">
           <Image
@@ -22,21 +21,21 @@ export function Footer() {
         </div>
       )}
 
-      {/* Thank you message */}
       <div className="bg-stone-900 px-4 py-16 text-center sm:px-6 sm:py-24">
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
+          transition={{ duration: 1.2 }}
           className="font-serif text-xl font-light text-stone-100 sm:text-2xl md:text-3xl"
         >
           {weddingData.ending.thankYou}
         </motion.p>
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
+          transition={{ duration: 1, delay: 0.15 }}
           className="mt-4 font-sans text-stone-300"
         >
           {weddingData.ending.finalLine}

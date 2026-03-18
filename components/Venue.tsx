@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { ExternalLink } from "lucide-react";
 import { weddingData } from "@/data/wedding-data";
@@ -7,6 +8,7 @@ import { weddingData } from "@/data/wedding-data";
 function VenueCard({
   venue,
   label,
+  mapLinkText,
   delay = 0,
 }: {
   venue: {
@@ -16,18 +18,32 @@ function VenueCard({
     googleMapsUrl: string;
     embedUrl: string;
     notes?: string;
+    image?: string;
   };
   label: string;
+  mapLinkText: string;
   delay?: number;
 }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
-      transition={{ delay }}
-      className="overflow-hidden rounded-lg border border-stone-300/60 bg-white/80 shadow-sm"
+      transition={{ duration: 1, delay }}
+      className="overflow-hidden rounded-2xl bg-white/70 backdrop-blur-sm"
     >
+      {venue.image && (
+        <div className="relative aspect-[3/2] overflow-hidden">
+          <Image
+            src={venue.image}
+            alt=""
+            fill
+            unoptimized
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 50vw"
+          />
+        </div>
+      )}
       <div className="p-6">
         <span className="font-sans text-xs uppercase tracking-wider text-amber-800/80">
           {label}
@@ -43,10 +59,10 @@ function VenueCard({
           href={venue.googleMapsUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-4 inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full border border-amber-800/50 bg-amber-900/10 px-5 py-2.5 font-sans text-sm uppercase tracking-wider text-amber-900 transition-colors hover:bg-amber-900/20 active:bg-amber-900/20"
+          className="mt-4 inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full bg-amber-900/10 px-5 py-2.5 font-sans text-sm text-amber-900 transition-colors hover:bg-amber-900/15 active:bg-amber-900/15"
         >
           <ExternalLink size={16} />
-          Google Maps
+          {mapLinkText}
         </a>
       </div>
       <div className="overflow-hidden rounded-b-lg">
@@ -68,33 +84,36 @@ function VenueCard({
 
 export function Venue() {
   const { bride, groom } = weddingData.venue;
+  const { labels } = weddingData;
+
   return (
     <section
       id="venue"
-      className="relative bg-stone-200/50 px-2 py-12 sm:px-6 sm:py-24 md:py-32"
+      className="relative bg-stone-200/50 px-2 py-16 sm:px-6 sm:py-28 md:py-36"
     >
       <div className="mx-auto max-w-6xl">
         <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
+          transition={{ duration: 1 }}
           className="font-serif text-3xl font-light text-stone-800 md:text-4xl"
         >
-          Địa điểm
+          {labels.venue}
         </motion.h2>
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
+          transition={{ duration: 1, delay: 0.08 }}
           className="mt-2 font-sans text-stone-600"
         >
-          Nhà gái và nhà trai
+          {labels.venueSubtitle}
         </motion.p>
 
         <div className="mt-10 grid gap-8 sm:gap-12 lg:grid-cols-2 lg:gap-16">
-          <VenueCard venue={bride} label={bride.label} delay={0.1} />
-          <VenueCard venue={groom} label={groom.label} delay={0.2} />
+          <VenueCard venue={bride} label={bride.label} mapLinkText={labels.mapLink} delay={0.1} />
+          <VenueCard venue={groom} label={groom.label} mapLinkText={labels.mapLink} delay={0.2} />
         </div>
       </div>
     </section>

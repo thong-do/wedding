@@ -1,5 +1,6 @@
 import { Hero } from "@/components/Hero";
 import { Intro } from "@/components/Intro";
+import { SectionDivider } from "@/components/SectionDivider";
 import { PhotoGallery } from "@/components/PhotoGallery";
 import { WeddingDetails } from "@/components/WeddingDetails";
 import { Timeline } from "@/components/Timeline";
@@ -12,10 +13,15 @@ export default function Home() {
     <main className="min-h-screen w-full overflow-x-hidden">
       <Hero />
       <Intro />
+      <SectionDivider />
       <PhotoGallery />
+      <SectionDivider />
       <WeddingDetails />
+      <SectionDivider />
       <Timeline />
+      <SectionDivider />
       <Venue />
+      <SectionDivider />
       <RSVP />
       <Footer />
     </main>

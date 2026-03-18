@@ -16,6 +16,32 @@ export interface WeddingData {
     tagline: string;
   };
   date: string;
+  labels: {
+    openingLine: string;
+    ceremonialInvite: string;
+    heroCta: { details: string; location: string; rsvp: string };
+    story: string;
+    storySubtitle: string;
+    gallery: string;
+    gallerySubtitle: string;
+    details: string;
+    detailsSubtitle: string;
+    timeline: string;
+    timelineSubtitle: string;
+    venue: string;
+    venueSubtitle: string;
+    rsvp: string;
+    rsvpSubtitle: string;
+    rsvpPrompt: string;
+    rsvpSuccess: string;
+    rsvpSuccessSubtitle: string;
+    emotionalHighlight: string;
+    mapLink: string;
+  };
+  hero: {
+    tagline: string;
+    cta: { details: string; location: string; rsvp: string };
+  };
   schedule: {
     ceremonyTime: string;
     receptionTime: string;
@@ -31,6 +57,7 @@ export interface WeddingData {
       googleMapsUrl: string;
       embedUrl: string;
       notes?: string;
+      image?: string;
     };
     groom: {
       label: string;
@@ -39,7 +66,13 @@ export interface WeddingData {
       googleMapsUrl: string;
       embedUrl: string;
       notes?: string;
+      image?: string;
     };
+  };
+  sectionImages?: {
+    details?: string;
+    timeline?: string;
+    rsvp?: string;
   };
   story: {
     intro: string;
@@ -52,15 +85,46 @@ export interface WeddingData {
     finalLine: string;
     image?: string;
   };
+  emotionalHighlightImage?: string;
 }
 
 export const weddingData: WeddingData = {
   couple: {
-    bride: "Phuong Anh",
-    groom: "Minh Thong",
+    bride: "Phương Anh",
+    groom: "Minh Thông",
     tagline: "A love story in motion",
   },
   date: "18/04/2026",
+  labels: {
+    openingLine: "Chúng mình rất vui khi được mời bạn đến ngày đặc biệt này.",
+    ceremonialInvite: "Trân trọng kính mời",
+    heroCta: {
+      details: "Xem ngày đặc biệt",
+      location: "Nơi gặp bạn",
+      rsvp: "Xác nhận tham dự",
+    },
+    story: "Chúng mình gặp nhau",
+    storySubtitle: "Một chút câu chuyện của hai đứa",
+    gallery: "Kỷ niệm",
+    gallerySubtitle: "Những khoảnh khắc chúng mình muốn giữ mãi",
+    details: "Ngày đặc biệt của chúng mình",
+    detailsSubtitle: "Rất mong được đón bạn",
+    timeline: "Một ngày bên nhau",
+    timelineSubtitle: "Từ sáng đến tối, cùng nhau",
+    venue: "Nơi chúng mình gặp bạn",
+    venueSubtitle: "Nhà gái và nhà trai — nơi chúng mình lớn lên",
+    rsvp: "Xác nhận tham dự cùng chúng mình",
+    rsvpSubtitle: "Dù có hay không thể đến, chúng mình đều rất muốn biết.",
+    rsvpPrompt: "Cho chúng mình biết bạn có thể đến nhé",
+    rsvpSuccess: "Cảm ơn bạn!",
+    rsvpSuccessSubtitle: "Hẹn gặp bạn trong ngày vui của chúng mình.",
+    emotionalHighlight: "Mãi bên nhau",
+    mapLink: "Xem chỉ đường",
+  },
+  hero: {
+    tagline: "Một câu chuyện tình yêu đang viết tiếp",
+    cta: { details: "Xem ngày đặc biệt", location: "Nơi gặp bạn", rsvp: "Xác nhận tham dự" },
+  },
   schedule: {
     ceremonyTime: "7:00",
     receptionTime: "10:00",
@@ -80,7 +144,8 @@ export const weddingData: WeddingData = {
       address: "Số nhà 79 làn 2 đường Thiên Đức phường Kinh Bắc, tỉnh Bắc Ninh",
       googleMapsUrl: "https://maps.app.goo.gl/j3X3ctoRdDovUFwY9",
       embedUrl: "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3720.030583853484!2d106.05028607544328!3d21.19094398049923!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjHCsDExJzI3LjQiTiAxMDbCsDAzJzEwLjMiRQ!5e0!3m2!1svi!2s!4v1773807220953!5m2!1svi!2s",
-      notes: "Có chỗ đậu xe. Vào cổng chính.",
+      // notes: "Có chỗ đậu xe. Vào cổng chính.",
+      // image: "https://i.ibb.co/1fpy7k1v/9-A67-D834-7-E07-4389-AE70-5-BF2-B155098-A-1-105-c.jpg",
     },
     groom: {
       label: "Nhà trai",
@@ -88,14 +153,21 @@ export const weddingData: WeddingData = {
       address: "Nhà văn hoá thôn Phú Mỹ, thôn Phú Mỹ, xã Kiều Phú, Hà Nội",
       googleMapsUrl: "https://maps.app.goo.gl/iKXrngru3EJx1hzd8",
       embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1081.6607707404046!2d105.62506169375344!3d20.986188516916233!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3134510055625b63%3A0xbb3bbea8b8b8746d!2zTmjDoCBWxINuIEjDs2EgVGjDtG4gUGjDuiBN4bu5!5e0!3m2!1svi!2s!4v1773806676251!5m2!1svi!2s",
-      notes: "Có chỗ đậu xe. Vào cổng chính.",
+      // notes: "Có chỗ đậu xe. Vào cổng chính.",
+      // image: "https://i.ibb.co/rKpjpGsx/9-BBD6-B37-690-D-433-F-8964-AF88165-A0532-1-105-c.jpg",
     },
   },
+  sectionImages: {
+    details: "https://i.ibb.co/LKwdXrd/1-CFD429-B-952-D-4-B35-9706-E9-BEAFFEDB33-1-102-a.jpg",
+    timeline: "https://i.ibb.co/60558Cwg/EDB1816-F-4-B78-4929-9-CB8-FCC74-F5-E4-A12-1-105-c.jpg",
+    rsvp: "https://i.ibb.co/YTyHwwtZ/65-C569-E0-0250-4252-A8-DC-911906-F3-EA74-1-102-a.jpg",
+  },
   story: {
-    intro: "TODO: Câu chuyện của chúng tôi",
+    intro: "Không biết bắt đầu từ đâu — có lẽ từ một ngày bình thường, một câu chào, một nụ cười. Rồi dần dần, hai đứa nhận ra mình không muốn rời xa nhau nữa. Hôm nay, chúng mình muốn mời bạn cùng chứng kiến ngày chúng mình chính thức trở thành gia đình.",
     images: [
       "https://i.ibb.co/kCVXN24/3-DA6-E9-CB-0572-42-B6-9-CAE-08386-A1-A0674-1-105-c.jpg",
       "https://i.ibb.co/7JMGM1Zg/358-D56-CE-0-E41-45-BE-9-FB2-611-D1-B688553-1-105-c.jpg",
+      "https://i.ibb.co/13F1VcJ/252-A3514-8-F65-4-CD0-BD13-0-AD4-DBF3-CC6-F-1-105-c.jpg",
     ],
   },
   gallery: [
@@ -113,12 +185,13 @@ export const weddingData: WeddingData = {
   ],
   heroImages: [
     "https://i.ibb.co/VcqZp0Kj/C6-F8-F0-DB-685-C-4312-A9-CA-E4-ACBB16-C3-E0-1-105-c.jpg",
+    "https://i.ibb.co/QWmX2fQ/DF724-C54-3496-436-B-98-D7-374-EB53-FF340-1-102-a.jpg",
     "https://i.ibb.co/35mBDVGm/43331963-D9-A6-402-C-9640-4-F4847-D48778-1-201-a.jpg",
-    "https://i.ibb.co/zhH9tHjN/1-F74-AD22-D949-4-CC6-BA54-723-B3-FB5-CF67-1-105-c.jpg",
   ],
   ending: {
-    thankYou: "Cảm ơn đã đến dự lễ cưới của chúng tôi.",
-    finalLine: "Hẹn gặp lại ở nhà gái và nhà trai.",
-    image: "https://i.ibb.co/YTyHwwtZ/65-C569-E0-0250-4252-A8-DC-911906-F3-EA74-1-102-a.jpg",
+    thankYou: "Cảm ơn vì đã ở đây cùng chúng mình.",
+    finalLine: "Hẹn gặp bạn ở nhà gái và nhà trai — nơi câu chuyện của chúng mình bắt đầu.",
+    image: "https://i.ibb.co/N2t3ZS8N/16-BED593-0-EDD-468-C-B643-2-BE71202014-F-1-102-a.jpg",
   },
+  emotionalHighlightImage: "https://i.ibb.co/35mBDVGm/43331963-D9-A6-402-C-9640-4-F4847-D48778-1-201-a.jpg",
 };
