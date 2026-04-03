@@ -29,7 +29,7 @@ export function Intro() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 1.2 }}
-            className="order-2 lg:order-1"
+            className="order-1"
           >
             <h2 className="font-serif text-3xl font-light text-stone-800 md:text-4xl">
               {weddingData.labels.story}
@@ -47,7 +47,7 @@ export function Intro() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 1.2, delay: 0.15 }}
-            className="order-1 lg:order-2"
+            className="order-2"
           >
             <div className="relative grid grid-cols-2 gap-1.5 sm:gap-4">
               <div className="relative aspect-[3/4] overflow-hidden rounded-sm">

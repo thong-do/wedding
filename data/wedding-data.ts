@@ -37,6 +37,12 @@ export interface WeddingData {
     rsvpSuccessSubtitle: string;
     emotionalHighlight: string;
     mapLink: string;
+    /** Small line above the large month title (e.g. calendar section) */
+    calendar: string;
+    /** Large script-style month title, e.g. “Tháng 4” */
+    calendarMonthTitle: string;
+    /** Caption under the grid for the highlighted day */
+    calendarCaption: string;
   };
   hero: {
     tagline: string;
@@ -73,6 +79,13 @@ export interface WeddingData {
     details?: string;
     timeline?: string;
     rsvp?: string;
+    /** Full-bleed background for the wedding calendar section; falls back to hero/emotional images */
+    calendar?: string;
+  };
+  /** Drives the calendar grid; weekday labels are fixed (MON–SUN) in the component */
+  calendar: {
+    /** ISO `YYYY-MM-DD` — must match the highlighted cell */
+    weddingDateIso: string;
   };
   story: {
     intro: string;
@@ -94,7 +107,7 @@ export const weddingData: WeddingData = {
     groom: "Minh Thông",
     tagline: "A love story in motion",
   },
-  date: "18/04/2026",
+  date: "26/04/2026",
   labels: {
     openingLine: "Chúng mình rất vui khi được mời bạn đến ngày đặc biệt này.",
     ceremonialInvite: "Trân trọng kính mời",
@@ -120,22 +133,27 @@ export const weddingData: WeddingData = {
     rsvpSuccessSubtitle: "Hẹn gặp bạn trong ngày vui của chúng mình.",
     emotionalHighlight: "Mãi bên nhau",
     mapLink: "Xem chỉ đường",
+    calendar: "Ngày chúng mình chọn",
+    calendarMonthTitle: "Tháng 4",
+    calendarCaption: "Ngày cưới",
   },
   hero: {
     tagline: "Một câu chuyện tình yêu đang viết tiếp",
     cta: { details: "Xem ngày đặc biệt", location: "Nơi gặp bạn", rsvp: "Xác nhận tham dự" },
   },
   schedule: {
-    ceremonyTime: "7:00",
-    receptionTime: "10:00",
-    dressCode: "Trang phục lịch sự",
+    ceremonyTime: "12:45",
+    receptionTime: "15:30",
+    dressCode: "16:30",
     // notes: "Ăn trưa và tiệc tiếp theo",
   },
   timeline: [
-    { time: "7:00", title: "Đón dâu và làm lễ tại nhà gái" },
-    { time: "10:00", title: "Về làm lễ tại nhà trai" },
-    { time: "10:30", title: "Ăn tiệc" },
-    { time: "11:30", title: "Chụp ảnh" },
+    { time: "11:10", title: "Bắt đầu đi đón dâu" },
+    { time: "12:45", title: "Làm lễ tại nhà gái" },
+    { time: "13:45", title: "Di chuyển về nhà trai" },
+    { time: "15:30", title: "Làm lễ tại nhà trai" },
+    { time: "16:30", title: "Ăn tiệc" },
+    { time: "18:30", title: "Giao lưu, chụp ảnh" },
   ],
   venue: {
     bride: {
@@ -158,40 +176,44 @@ export const weddingData: WeddingData = {
     },
   },
   sectionImages: {
-    details: "https://i.ibb.co/LKwdXrd/1-CFD429-B-952-D-4-B35-9706-E9-BEAFFEDB33-1-102-a.jpg",
-    timeline: "https://i.ibb.co/60558Cwg/EDB1816-F-4-B78-4929-9-CB8-FCC74-F5-E4-A12-1-105-c.jpg",
-    rsvp: "https://i.ibb.co/YTyHwwtZ/65-C569-E0-0250-4252-A8-DC-911906-F3-EA74-1-102-a.jpg",
+    details: "/images/C1BAFE96-38CD-48A1-B860-909A9898D3B9_1_105_c.jpeg",
+    timeline: "/images/C1BAFE96-38CD-48A1-B860-909A9898D3B9_1_105_c.jpeg",
+    rsvp: "/images/A827539B-8C8A-4C9A-ADE4-5FB34763B67A_1_105_c.jpeg",
+    calendar: "/images/623BEDE9-C52E-41B1-AB17-57EC80F4DD98_1_105_c.jpeg",
+  },
+  calendar: {
+    weddingDateIso: "2026-04-26",
   },
   story: {
     intro: "Không biết bắt đầu từ đâu — có lẽ từ một ngày bình thường, một câu chào, một nụ cười. Rồi dần dần, hai đứa nhận ra mình không muốn rời xa nhau nữa. Hôm nay, chúng mình muốn mời bạn cùng chứng kiến ngày chúng mình chính thức trở thành gia đình.",
     images: [
-      "https://i.ibb.co/kCVXN24/3-DA6-E9-CB-0572-42-B6-9-CAE-08386-A1-A0674-1-105-c.jpg",
-      "https://i.ibb.co/7JMGM1Zg/358-D56-CE-0-E41-45-BE-9-FB2-611-D1-B688553-1-105-c.jpg",
-      "https://i.ibb.co/13F1VcJ/252-A3514-8-F65-4-CD0-BD13-0-AD4-DBF3-CC6-F-1-105-c.jpg",
+      "/images/837C4CEA-EB53-481F-B2C4-469430849821_1_105_c.jpeg",
+      "/images/B558A130-5870-4AC6-98D3-A77D21796242_1_105_c.jpeg",
+      "/images/C89A38E0-C0E2-424F-B267-B33D064BA433_1_105_c.jpeg",
     ],
   },
   gallery: [
-    "https://i.ibb.co/JjDLjvjn/8229693-A-0152-444-C-B784-85-AFD1-A76-F39-1-105-c.jpg",
-    "https://i.ibb.co/k2CfCtWJ/C2-C4680-D-423-F-4-DB3-9-FA4-C60-BB5-A665-CE-1-105-c.jpg",
-    "https://i.ibb.co/fYbbgsPC/ED860337-B8-A2-4179-BCEF-686-D2-AA1-F61-C-1-105-c.jpg",
-    "https://i.ibb.co/NdSQ8TcC/74908368-DBF7-4-F47-977-D-39-F31-D6-FC194-1-105-c.jpg",
-    "https://i.ibb.co/KjsjJTPs/5-FEE464-C-2-C78-416-B-B0-EF-2265619-EC3-F3-1-105-c.jpg",
-    "https://i.ibb.co/m55xyJn2/A50-DFA8-A-A817-4-AC3-A4-AC-D2-B6-E7-F10321-1-105-c.jpg",
-    "https://i.ibb.co/tPM2fVsk/FC3-CB550-CE31-4-D91-8616-D45-A7-FCF2897-1-105-c.jpg",
-    "https://i.ibb.co/p63bL1fS/E88-F5-C2-B-4977-42-F3-BA7-F-E805-B74-DF69-B-1-105-c.jpg",
-    "https://i.ibb.co/m5P4MPRx/2587530-C-DA8-C-4996-8-CCA-91-EDE187-BB83-1-105-c.jpg",
-    "https://i.ibb.co/0ySH1Lmg/3-F05897-B-8325-4-BE3-9-D47-A478-D20-DB8-F6-1-105-c.jpg",
-    "https://i.ibb.co/GBXqMgZ/06061-EEE-B9-DA-4-F21-BA10-58-F60-D30-F624-1-105-c.jpg",
+    "/images/C34C39A7-260A-48B3-A9AF-1DBF1D8B3198.jpeg",
+    "/images/6FF664F9-16D8-48BE-993D-567687B3A7D9_1_105_c.jpeg",
+    "/images/18F5DF90-4759-4850-BD10-5817ECB7BE1C.jpeg",
+    "/images/47FA5865-4D78-42BA-A08A-0D17DBC83F95_1_105_c.jpeg",
+    "/images/77673908-D1C4-4BB2-B598-9C68008BF429_1_105_c.jpeg",
+    "/images/A264E978-8944-4C4E-8CA9-64365325FDB4_1_105_c.jpeg",
+    "/images/AF05CD46-F50F-4097-8FD4-046D3326015D_1_105_c.jpeg",
+    "/images/8D48314D-327A-4815-877E-41C89C513D23_1_105_c.jpeg",
+    "/images/0B76B8C0-E1DA-4B0E-8052-463304AA7490_1_105_c.jpeg",
+    "/images/CBB62FEA-E732-40ED-BBB6-0DCAD8DF7CED_1_105_c.jpeg",
+    "/images/4A0B8023-C09C-4E32-A6CD-64F015ECD4FA_1_105_c.jpeg",
   ],
   heroImages: [
-    "https://i.ibb.co/VcqZp0Kj/C6-F8-F0-DB-685-C-4312-A9-CA-E4-ACBB16-C3-E0-1-105-c.jpg",
-    "https://i.ibb.co/QWmX2fQ/DF724-C54-3496-436-B-98-D7-374-EB53-FF340-1-102-a.jpg",
-    "https://i.ibb.co/35mBDVGm/43331963-D9-A6-402-C-9640-4-F4847-D48778-1-201-a.jpg",
+    "/images/8C22AD24-B6A1-4FCD-8634-7D5C2DDBEAFD_1_105_c.jpeg",
+    "/images/827D4A14-F627-414D-91E4-839B6F489C28_1_105_c.jpeg",
+    "/images/79C37AE5-1BCD-40AB-8150-148CEED6ED4E_1_105_c.jpeg",
   ],
   ending: {
     thankYou: "Cảm ơn vì đã ở đây cùng chúng mình.",
     finalLine: "Hẹn gặp bạn ở nhà gái và nhà trai — nơi câu chuyện của chúng mình bắt đầu.",
-    image: "https://i.ibb.co/N2t3ZS8N/16-BED593-0-EDD-468-C-B643-2-BE71202014-F-1-102-a.jpg",
+    image: "/images/79B82376-97D1-49E4-A10A-8FD0B6AFAAD1_1_105_c.jpeg",
   },
   emotionalHighlightImage: "https://i.ibb.co/35mBDVGm/43331963-D9-A6-402-C-9640-4-F4847-D48778-1-201-a.jpg",
 };
