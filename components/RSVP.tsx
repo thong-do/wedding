@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Send, Check } from "lucide-react";
@@ -23,9 +23,13 @@ const initialFormData: FormData = {
 };
 
 export function RSVP() {
+  const sectionRef = useRef<HTMLElement>(null);
   const [formData, setFormData] = useState<FormData>(initialFormData);
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
+  const [honeypot, setHoneypot] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const { labels } = weddingData;
 
   const validate = (): boolean => {
@@ -37,17 +41,60 @@ export function RSVP() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSubmitError(null);
+    if (honeypot.trim() !== "") return;
     if (!validate()) return;
-    console.log("RSVP submitted:", formData);
-    setSubmitted(true);
-    setFormData(initialFormData);
+
+    setIsSubmitting(true);
+    try {
+      const res = await fetch("/api/rsvp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
+          phone: formData.phone,
+          attendance: formData.attendance,
+          guests: formData.guests,
+          notes: formData.notes,
+          website: honeypot,
+        }),
+      });
+      const data = (await res.json().catch(() => ({}))) as { error?: string };
+
+      if (!res.ok) {
+        setSubmitError(data.error ?? "Không gửi được. Thử lại sau nhé.");
+        return;
+      }
+
+      setSubmitted(true);
+      setFormData(initialFormData);
+      setHoneypot("");
+    } catch {
+      setSubmitError("Mạng không ổn định. Thử lại sau nhé.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
+  useEffect(() => {
+    if (!submitted || !sectionRef.current) return;
+    const el = sectionRef.current;
+    requestAnimationFrame(() => {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      el.focus({ preventScroll: true });
+    });
+  }, [submitted]);
 
   if (submitted) {
     return (
-      <section className="relative bg-stone-50 px-2 py-16 sm:px-6 sm:py-28 md:py-36">
+      <section
+        ref={sectionRef}
+        id="rsvp"
+        tabIndex={-1}
+        className="relative scroll-mt-8 bg-stone-50 px-2 py-16 outline-none sm:px-6 sm:py-28 md:py-36"
+      >
         <div className="mx-auto max-w-xl text-center">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
@@ -69,8 +116,9 @@ export function RSVP() {
 
   return (
     <section
+      ref={sectionRef}
       id="rsvp"
-      className="relative bg-stone-50 px-2 py-16 sm:px-6 sm:py-28 md:py-36"
+      className="relative scroll-mt-8 bg-stone-50 px-2 py-16 sm:px-6 sm:py-28 md:py-36"
     >
       <div className="mx-auto max-w-xl">
         <motion.h2
@@ -127,8 +175,23 @@ export function RSVP() {
           viewport={{ once: true }}
           transition={{ duration: 1, delay: 0.2 }}
           onSubmit={handleSubmit}
-          className="mt-8 space-y-6 sm:mt-10"
+          aria-busy={isSubmitting}
+          className="relative mt-8 space-y-6 sm:mt-10"
         >
+          {/* Honeypot — leave empty; bots often fill this */}
+          <div className="absolute -left-[9999px] top-0 h-px w-px overflow-hidden" aria-hidden="true">
+            <label htmlFor="rsvp-website">Website</label>
+            <input
+              id="rsvp-website"
+              name="website"
+              type="text"
+              tabIndex={-1}
+              autoComplete="off"
+              value={honeypot}
+              onChange={(e) => setHoneypot(e.target.value)}
+            />
+          </div>
+
           <div>
             <label htmlFor="name" className="block font-sans text-sm font-medium text-stone-700">
               Tên bạn
@@ -136,6 +199,8 @@ export function RSVP() {
             <input
               id="name"
               type="text"
+              name="name"
+              maxLength={120}
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               className="mt-2 w-full rounded-2xl border border-stone-200 bg-white/80 px-5 py-3 font-sans text-stone-800 placeholder-stone-400 focus:border-amber-800/40 focus:outline-none focus:ring-1 focus:ring-amber-800/20"
@@ -153,6 +218,8 @@ export function RSVP() {
             <input
               id="phone"
               type="tel"
+              name="phone"
+              maxLength={32}
               value={formData.phone}
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
               className="mt-2 w-full rounded-2xl border border-stone-200 bg-white/80 px-5 py-3 font-sans text-stone-800 placeholder-stone-400 focus:border-amber-800/40 focus:outline-none focus:ring-1 focus:ring-amber-800/20"
@@ -218,7 +285,9 @@ export function RSVP() {
             </label>
             <textarea
               id="notes"
+              name="notes"
               rows={3}
+              maxLength={2000}
               value={formData.notes}
               onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
               className="mt-2 w-full rounded-2xl border border-stone-200 bg-white/80 px-5 py-3 font-sans text-stone-800 placeholder-stone-400 focus:border-amber-800/40 focus:outline-none focus:ring-1 focus:ring-amber-800/20"
@@ -226,13 +295,27 @@ export function RSVP() {
             />
           </div>
 
+          {submitError && (
+            <p
+              role="alert"
+              className="rounded-2xl border border-amber-800/25 bg-amber-50/80 px-4 py-3 text-center font-sans text-sm text-amber-900"
+            >
+              {submitError}
+            </p>
+          )}
+
           <button
             type="submit"
-              className="flex min-h-[48px] w-full items-center justify-center gap-2 rounded-full bg-amber-900/90 px-6 py-4 font-sans text-sm text-white transition-all duration-300 hover:bg-amber-800 active:bg-amber-800"
+            disabled={isSubmitting}
+            className="flex min-h-[48px] w-full items-center justify-center gap-2 rounded-full bg-amber-900/90 px-6 py-4 font-sans text-sm text-white transition-all duration-300 hover:bg-amber-800 enabled:active:bg-amber-800 disabled:cursor-not-allowed disabled:opacity-60"
           >
-            <Send size={18} />
-            Gửi cho chúng mình
+            <Send size={18} aria-hidden />
+            {isSubmitting ? "Đang gửi…" : "Gửi cho chúng mình"}
           </button>
+
+          <p className="text-center font-sans text-xs text-stone-500 sm:text-sm">
+            {labels.rsvpSubmitHint}
+          </p>
         </motion.form>
       </div>
     </section>

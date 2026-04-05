@@ -43,6 +43,8 @@ export interface WeddingData {
     calendarMonthTitle: string;
     /** Caption under the grid for the highlighted day */
     calendarCaption: string;
+    /** Shown under the RSVP submit button */
+    rsvpSubmitHint: string;
   };
   hero: {
     tagline: string;
@@ -136,6 +138,8 @@ export const weddingData: WeddingData = {
     calendar: "Ngày chúng mình chọn",
     calendarMonthTitle: "Tháng 4",
     calendarCaption: "Ngày cưới",
+    rsvpSubmitHint:
+      "Thông tin được lưu vào Google Sheet của hai đứa — chỉ cần gửi một lần.",
   },
   hero: {
     tagline: "Một câu chuyện tình yêu đang viết tiếp",
