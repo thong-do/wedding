@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ExternalLink } from "lucide-react";
+import { MapPin } from "lucide-react";
 import { weddingData } from "@/data/wedding-data";
 
 function VenueCard({
@@ -16,7 +16,7 @@ function VenueCard({
     name: string;
     address: string;
     googleMapsUrl: string;
-    embedUrl: string;
+    embedUrl?: string;
     notes?: string;
     image?: string;
   };
@@ -61,22 +61,9 @@ function VenueCard({
           rel="noopener noreferrer"
           className="mt-4 inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full bg-amber-900/10 px-5 py-2.5 font-sans text-sm text-amber-900 transition-colors hover:bg-amber-900/15 active:bg-amber-900/15"
         >
-          <ExternalLink size={16} />
+          <MapPin size={18} strokeWidth={1.75} aria-hidden />
           {mapLinkText}
         </a>
-      </div>
-      <div className="overflow-hidden rounded-b-lg">
-        <iframe
-          src={venue.embedUrl}
-          width="100%"
-          height="250"
-          style={{ border: 0 }}
-          allowFullScreen
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-          title={`${venue.name} location`}
-          className="min-h-[200px] w-full sm:min-h-[250px]"
-        />
       </div>
     </motion.div>
   );

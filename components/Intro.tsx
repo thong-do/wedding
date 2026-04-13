@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
+import { PhotoCollageThree } from "@/components/PhotoCollageThree";
 import { weddingData } from "@/data/wedding-data";
 
 export function Intro() {
@@ -49,40 +49,7 @@ export function Intro() {
             transition={{ duration: 1.2, delay: 0.15 }}
             className="order-2"
           >
-            <div className="relative grid grid-cols-2 gap-1.5 sm:gap-4">
-              <div className="relative aspect-[3/4] overflow-hidden rounded-sm">
-                <Image
-                  src={weddingData.story.images[0]}
-                  alt=""
-                  fill
-                  unoptimized
-                  className="object-cover transition-transform duration-700 hover:scale-105"
-                  sizes="(max-width: 768px) 50vw, 400px"
-                />
-              </div>
-              <div className="relative mt-2 aspect-[3/4] overflow-hidden rounded-sm sm:mt-8">
-                <Image
-                  src={weddingData.story.images[1] ?? weddingData.story.images[0]}
-                  alt=""
-                  fill
-                  unoptimized
-                  className="object-cover transition-transform duration-700 hover:scale-105"
-                  sizes="(max-width: 768px) 50vw, 400px"
-                />
-              </div>
-              {weddingData.story.images[2] && (
-                <div className="relative col-span-2 mt-2 aspect-[21/9] overflow-hidden rounded-sm sm:mt-4">
-                  <Image
-                    src={weddingData.story.images[2]}
-                    alt=""
-                    fill
-                    unoptimized
-                    className="object-cover transition-transform duration-700 hover:scale-105"
-                    sizes="(max-width: 768px) 100vw, 800px"
-                  />
-                </div>
-              )}
-            </div>
+            <PhotoCollageThree images={weddingData.story.images} />
           </motion.div>
         </div>
       </div>

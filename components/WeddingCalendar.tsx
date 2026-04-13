@@ -304,6 +304,32 @@ export function WeddingCalendar() {
               {schedule.notes}
             </motion.p>
           )}
+
+          {cal.detailImages?.[0] && cal.detailImages?.[1] && (
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.9, delay: 0.08, ease: [0.22, 0.61, 0.36, 1] }}
+              className="mt-10 grid grid-cols-2 gap-3 sm:mt-12 sm:gap-5"
+            >
+              {cal.detailImages.map((src, i) => (
+                <div
+                  key={src}
+                  className="relative aspect-[3/4] overflow-hidden rounded-sm ring-1 ring-stone-200/70 shadow-sm"
+                >
+                  <Image
+                    src={src}
+                    alt=""
+                    fill
+                    unoptimized
+                    className="object-cover transition-transform duration-700 motion-safe:hover:scale-[1.02]"
+                    sizes="(max-width: 896px) calc(50vw - 1.5rem), 400px"
+                  />
+                </div>
+              ))}
+            </motion.div>
+          )}
         </div>
       </div>
     </section>
