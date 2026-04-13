@@ -1,10 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { motion } from "framer-motion";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
-import { X } from "lucide-react";
 import { weddingData } from "@/data/wedding-data";
+import { useLightbox } from "@/components/LightboxProvider";
 
 const galleryLayout = [
   { col: "col-span-1", aspect: "aspect-[3/4]", i: 0 },
@@ -21,7 +20,7 @@ const galleryLayout = [
 ];
 
 export function PhotoGallery() {
-  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const { openLightbox } = useLightbox();
   const { labels } = weddingData;
 
   return (
@@ -55,16 +54,18 @@ export function PhotoGallery() {
             return (
               <motion.button
                 key={`${i}-${idx}`}
+                type="button"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1, delay: idx * 0.04 }}
-                onClick={() => setLightboxIndex(i)}
+                onClick={() => openLightbox(src)}
+                aria-label={`View photo ${i + 1}`}
                 className={`group relative overflow-hidden rounded-sm ${col} ${aspect}`}
               >
                 <Image
                   src={src}
-                  alt={`Ảnh ${i + 1}`}
+                  alt=""
                   fill
                   unoptimized
                   className="object-cover transition-transform duration-700 group-hover:scale-[1.02]"
@@ -76,44 +77,6 @@ export function PhotoGallery() {
           })}
         </div>
       </div>
-
-      <AnimatePresence>
-        {lightboxIndex !== null && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4 pt-14 pb-6"
-            onClick={() => setLightboxIndex(null)}
-          >
-            <button
-              onClick={() => setLightboxIndex(null)}
-              className="absolute right-4 top-4 z-10 flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full p-2 text-white/80 transition-colors hover:text-white"
-              aria-label="Đóng"
-            >
-              <X size={28} />
-            </button>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.5 }}
-              className="relative max-h-[90vh] max-w-4xl"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <Image
-                src={weddingData.gallery[lightboxIndex % weddingData.gallery.length]}
-                alt={`Ảnh ${lightboxIndex + 1}`}
-                width={1200}
-                height={800}
-                unoptimized
-                className="max-h-[90vh] w-auto object-contain"
-              />
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </section>
   );
 }

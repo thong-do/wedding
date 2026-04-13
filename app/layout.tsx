@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Source_Sans_3 } from "next/font/google";
 import { weddingData } from "@/data/wedding-data";
 import { BackgroundMusic } from "@/components/BackgroundMusic";
+import { Providers } from "@/components/Providers";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -42,7 +43,7 @@ export default function RootLayout({
       <body
         className={`${cormorant.variable} ${sourceSans.variable} font-sans antialiased`}
       >
-        {children}
+        <Providers>{children}</Providers>
         <BackgroundMusic />
       </body>
     </html>

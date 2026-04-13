@@ -5,8 +5,10 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { weddingData } from "@/data/wedding-data";
+import { useLightbox } from "@/components/LightboxProvider";
 
 export function Hero() {
+  const { openLightbox } = useLightbox();
   const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
@@ -30,8 +32,18 @@ export function Hero() {
             initial={false}
             animate={{ opacity: i === currentSlide ? 1 : 0 }}
             transition={{ duration: 2, ease: "easeInOut" }}
-            className="absolute inset-0"
+            role="button"
+            tabIndex={i === currentSlide ? 0 : -1}
+            aria-label="View hero photo"
+            className="absolute inset-0 cursor-pointer"
             style={{ pointerEvents: i === currentSlide ? "auto" : "none" }}
+            onClick={() => openLightbox(src)}
+            onKeyDown={(e) => {
+              if (i === currentSlide && (e.key === "Enter" || e.key === " ")) {
+                e.preventDefault();
+                openLightbox(src);
+              }
+            }}
           >
             <Image
               src={src}

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useLightbox } from "@/components/LightboxProvider";
 
 type Props = {
   images: string[];
@@ -23,6 +24,7 @@ export function PhotoCollageThree({
   omitLandscape = false,
   portraitSizes = defaultPortraitSizes,
 }: Props) {
+  const { openLightbox } = useLightbox();
   const filtered = images.filter(Boolean);
   if (filtered.length === 0) return null;
 
@@ -32,37 +34,52 @@ export function PhotoCollageThree({
 
   return (
     <div className={`relative grid grid-cols-2 gap-2 sm:gap-4 md:gap-6 ${className}`}>
-      <div className="relative aspect-[3/4] overflow-hidden rounded-sm ring-1 ring-stone-200/50">
+      <button
+        type="button"
+        onClick={() => openLightbox(first)}
+        aria-label="View photo"
+        className="group relative aspect-[3/4] w-full overflow-hidden rounded-sm ring-1 ring-stone-200/50"
+      >
         <Image
           src={first}
           alt=""
           fill
           unoptimized
-          className="object-cover transition-transform duration-700 motion-safe:hover:scale-105"
+          className="object-cover transition-transform duration-700 motion-safe:group-hover:scale-105"
           sizes={portraitSizes}
         />
-      </div>
-      <div className="relative mt-2 aspect-[3/4] overflow-hidden rounded-sm ring-1 ring-stone-200/50 sm:mt-8">
+      </button>
+      <button
+        type="button"
+        onClick={() => openLightbox(second)}
+        aria-label="View photo"
+        className="group relative mt-2 aspect-[3/4] w-full overflow-hidden rounded-sm ring-1 ring-stone-200/50 sm:mt-8"
+      >
         <Image
           src={second}
           alt=""
           fill
           unoptimized
-          className="object-cover transition-transform duration-700 motion-safe:hover:scale-105"
+          className="object-cover transition-transform duration-700 motion-safe:group-hover:scale-105"
           sizes={portraitSizes}
         />
-      </div>
+      </button>
       {third ? (
-        <div className="col-span-2 mt-2 overflow-hidden rounded-sm ring-1 ring-stone-200/50 sm:mt-4">
+        <button
+          type="button"
+          onClick={() => openLightbox(third)}
+          aria-label="View photo"
+          className="group col-span-2 mt-2 w-full overflow-hidden rounded-sm ring-1 ring-stone-200/50 sm:mt-4"
+        >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={third}
             alt=""
             loading="lazy"
             decoding="async"
-            className="h-auto w-full align-middle transition-transform duration-700 motion-safe:hover:scale-[1.02]"
+            className="h-auto w-full align-middle transition-transform duration-700 motion-safe:group-hover:scale-[1.02]"
           />
-        </div>
+        </button>
       ) : null}
     </div>
   );

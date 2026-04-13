@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { MapPin } from "lucide-react";
 import { weddingData } from "@/data/wedding-data";
+import { useLightbox } from "@/components/LightboxProvider";
 
 function VenueCard({
   venue,
@@ -25,6 +26,7 @@ function VenueCard({
   mapLinkText: string;
   delay?: number;
 }) {
+  const { openLightbox } = useLightbox();
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -34,7 +36,12 @@ function VenueCard({
       className="overflow-hidden rounded-2xl bg-white/70 backdrop-blur-sm"
     >
       {venue.image && (
-        <div className="relative aspect-[3/2] overflow-hidden">
+        <button
+          type="button"
+          onClick={() => openLightbox(venue.image!)}
+          aria-label="View photo"
+          className="relative block w-full overflow-hidden aspect-[3/2]"
+        >
           <Image
             src={venue.image}
             alt=""
@@ -43,7 +50,7 @@ function VenueCard({
             className="object-cover"
             sizes="(max-width: 768px) 100vw, 50vw"
           />
-        </div>
+        </button>
       )}
       <div className="p-6">
         <span className="font-sans text-xs uppercase tracking-wider text-amber-800/80">
@@ -67,7 +74,12 @@ function VenueCard({
         </a>
         {venue.portraitBelowMap ? (
           <div className="mt-5 w-full">
-            <div className="relative aspect-[3/4] w-full overflow-hidden rounded-xl ring-1 ring-stone-200/60">
+            <button
+              type="button"
+              onClick={() => openLightbox(venue.portraitBelowMap!)}
+              aria-label="View photo"
+              className="relative block aspect-[3/4] w-full overflow-hidden rounded-xl ring-1 ring-stone-200/60"
+            >
               <Image
                 src={venue.portraitBelowMap}
                 alt=""
@@ -76,7 +88,7 @@ function VenueCard({
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 50vw"
               />
-            </div>
+            </button>
           </div>
         ) : null}
       </div>

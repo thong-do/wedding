@@ -3,6 +3,7 @@
 import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { PhotoCollageThree } from "@/components/PhotoCollageThree";
+import { useLightbox } from "@/components/LightboxProvider";
 import { weddingData } from "@/data/wedding-data";
 import type { TimelineTag } from "@/data/wedding-data";
 
@@ -59,6 +60,7 @@ const timeClassName =
   "font-serif text-[0.8125rem] font-light tabular-nums tracking-[0.05em] text-stone-600 sm:text-sm";
 
 export function Timeline() {
+  const { openLightbox } = useLightbox();
   const { timeline, labels, venue } = weddingData;
   const collageImages = useMemo(timelineCollageImages, []);
   const landscapeSrc = collageImages[2];
@@ -91,12 +93,15 @@ export function Timeline() {
         </motion.p>
 
         {landscapeSrc ? (
-          <motion.div
+          <motion.button
+            type="button"
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.95, delay: 0.06, ease: [0.22, 0.61, 0.36, 1] }}
-            className="mx-auto mt-8 w-[70%] max-w-full overflow-hidden rounded-sm ring-1 ring-stone-200/50 sm:mt-10"
+            onClick={() => openLightbox(landscapeSrc)}
+            aria-label="View photo"
+            className="group mx-auto mt-8 block w-[70%] max-w-full overflow-hidden rounded-sm ring-1 ring-stone-200/50 sm:mt-10"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -104,9 +109,9 @@ export function Timeline() {
               alt=""
               loading="lazy"
               decoding="async"
-              className="h-auto w-full align-middle transition-transform duration-700 motion-safe:hover:scale-[1.01]"
+              className="h-auto w-full align-middle transition-transform duration-700 motion-safe:group-hover:scale-[1.01]"
             />
-          </motion.div>
+          </motion.button>
         ) : null}
 
         <div className="mt-12 w-full sm:mt-14">

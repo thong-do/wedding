@@ -3,12 +3,19 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { weddingData } from "@/data/wedding-data";
+import { useLightbox } from "@/components/LightboxProvider";
 
 export function Footer() {
+  const { openLightbox } = useLightbox();
   return (
     <footer className="relative overflow-hidden">
       {weddingData.ending.image && (
-        <div className="relative h-[55vh] min-h-[280px] w-full sm:h-[50vh] sm:min-h-[300px]">
+        <button
+          type="button"
+          onClick={() => openLightbox(weddingData.ending.image!)}
+          aria-label="View photo"
+          className="relative block h-[55vh] min-h-[280px] w-full sm:h-[50vh] sm:min-h-[300px]"
+        >
           <Image
             src={weddingData.ending.image}
             alt=""
@@ -17,8 +24,8 @@ export function Footer() {
             className="object-cover"
             sizes="100vw"
           />
-          <div className="absolute inset-0 bg-stone-900/50" />
-        </div>
+          <div className="pointer-events-none absolute inset-0 bg-stone-900/50" />
+        </button>
       )}
 
       <div className="bg-stone-900 px-4 py-16 text-center sm:px-6 sm:py-24">

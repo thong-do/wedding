@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { Calendar, Clock, Heart, UtensilsCrossed } from "lucide-react";
 import { weddingData } from "@/data/wedding-data";
+import { useLightbox } from "@/components/LightboxProvider";
 
 const WEEKDAYS = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"] as const;
 
@@ -36,6 +37,7 @@ function chunkWeeks(cells: (number | null)[]): (number | null)[][] {
 }
 
 export function WeddingCalendar() {
+  const { openLightbox } = useLightbox();
   const { calendar: cal, labels, schedule, sectionImages, emotionalHighlightImage, heroImages } =
     weddingData;
 
@@ -313,20 +315,23 @@ export function WeddingCalendar() {
               transition={{ duration: 0.9, delay: 0.08, ease: [0.22, 0.61, 0.36, 1] }}
               className="mt-10 grid grid-cols-2 gap-3 sm:mt-12 sm:gap-5"
             >
-              {cal.detailImages.map((src, i) => (
-                <div
+              {cal.detailImages.map((src) => (
+                <button
                   key={src}
-                  className="relative aspect-[3/4] overflow-hidden rounded-sm ring-1 ring-stone-200/70 shadow-sm"
+                  type="button"
+                  onClick={() => openLightbox(src)}
+                  aria-label="View photo"
+                  className="group relative aspect-[3/4] w-full overflow-hidden rounded-sm ring-1 ring-stone-200/70 shadow-sm"
                 >
                   <Image
                     src={src}
                     alt=""
                     fill
                     unoptimized
-                    className="object-cover transition-transform duration-700 motion-safe:hover:scale-[1.02]"
+                    className="object-cover transition-transform duration-700 motion-safe:group-hover:scale-[1.02]"
                     sizes="(max-width: 896px) calc(50vw - 1.5rem), 400px"
                   />
-                </div>
+                </button>
               ))}
             </motion.div>
           )}

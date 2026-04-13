@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { Send, Check } from "lucide-react";
 import { weddingData } from "@/data/wedding-data";
+import { useLightbox } from "@/components/LightboxProvider";
 
 interface FormData {
   name: string;
@@ -23,6 +24,7 @@ const initialFormData: FormData = {
 };
 
 export function RSVP() {
+  const { openLightbox } = useLightbox();
   const sectionRef = useRef<HTMLElement>(null);
   const [formData, setFormData] = useState<FormData>(initialFormData);
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
@@ -151,12 +153,15 @@ export function RSVP() {
         </motion.p>
 
         {weddingData.sectionImages?.rsvp && (
-          <motion.div
+          <motion.button
+            type="button"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 1, delay: 0.2 }}
-            className="relative mx-auto mt-6 aspect-[3/2] max-w-md overflow-hidden rounded-sm sm:mt-8"
+            onClick={() => openLightbox(weddingData.sectionImages!.rsvp!)}
+            aria-label="View photo"
+            className="relative mx-auto mt-6 block aspect-[3/2] max-w-md overflow-hidden rounded-sm sm:mt-8"
           >
             <Image
               src={weddingData.sectionImages.rsvp}
@@ -166,7 +171,7 @@ export function RSVP() {
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 448px"
             />
-          </motion.div>
+          </motion.button>
         )}
 
         <motion.form

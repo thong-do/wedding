@@ -3,8 +3,10 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { weddingData } from "@/data/wedding-data";
+import { useLightbox } from "@/components/LightboxProvider";
 
 export function WeddingDetails() {
+  const { openLightbox } = useLightbox();
   const { labels } = weddingData;
 
   return (
@@ -33,12 +35,15 @@ export function WeddingDetails() {
         </motion.p>
 
         {weddingData.sectionImages?.details && (
-          <motion.div
+          <motion.button
+            type="button"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 1, delay: 0.12 }}
-            className="relative mx-auto mt-8 aspect-[3/4] max-w-md overflow-hidden rounded-sm sm:mt-10"
+            onClick={() => openLightbox(weddingData.sectionImages!.details!)}
+            aria-label="View photo"
+            className="relative mx-auto mt-8 block aspect-[3/4] max-w-md overflow-hidden rounded-sm sm:mt-10"
           >
             <Image
               src={weddingData.sectionImages.details}
@@ -48,7 +53,7 @@ export function WeddingDetails() {
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 448px"
             />
-          </motion.div>
+          </motion.button>
         )}
       </div>
     </section>
