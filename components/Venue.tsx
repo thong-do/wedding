@@ -19,6 +19,7 @@ function VenueCard({
     embedUrl?: string;
     notes?: string;
     image?: string;
+    portraitBelowMap?: string;
   };
   label: string;
   mapLinkText: string;
@@ -64,6 +65,20 @@ function VenueCard({
           <MapPin size={18} strokeWidth={1.75} aria-hidden />
           {mapLinkText}
         </a>
+        {venue.portraitBelowMap ? (
+          <div className="mt-5 w-full">
+            <div className="relative aspect-[3/4] w-full overflow-hidden rounded-xl ring-1 ring-stone-200/60">
+              <Image
+                src={venue.portraitBelowMap}
+                alt=""
+                fill
+                unoptimized
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+            </div>
+          </div>
+        ) : null}
       </div>
     </motion.div>
   );

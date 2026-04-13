@@ -73,6 +73,8 @@ export interface WeddingData {
       embedUrl?: string;
       notes?: string;
       image?: string;
+      /** Portrait photo below the map link (full width of card body) */
+      portraitBelowMap?: string;
     };
     groom: {
       label: string;
@@ -82,6 +84,7 @@ export interface WeddingData {
       embedUrl?: string;
       notes?: string;
       image?: string;
+      portraitBelowMap?: string;
     };
   };
   sectionImages?: {
@@ -209,6 +212,7 @@ export const weddingData: WeddingData = {
       address: "Số nhà 79 làn 2 đường Thiên Đức phường Kinh Bắc, tỉnh Bắc Ninh",
       googleMapsUrl: "https://maps.app.goo.gl/j3X3ctoRdDovUFwY9",
       embedUrl: "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3720.030583853484!2d106.05028607544328!3d21.19094398049923!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjHCsDExJzI3LjQiTiAxMDbCsDAzJzEwLjMiRQ!5e0!3m2!1svi!2s!4v1773807220953!5m2!1svi!2s",
+      portraitBelowMap: "/images/IMG_9117.JPG",
       // notes: "Có chỗ đậu xe. Vào cổng chính.",
       // image: "https://i.ibb.co/1fpy7k1v/9-A67-D834-7-E07-4389-AE70-5-BF2-B155098-A-1-105-c.jpg",
     },
@@ -218,6 +222,7 @@ export const weddingData: WeddingData = {
       address: "Nhà văn hoá thôn Phú Mỹ, thôn Phú Mỹ, xã Kiều Phú, Hà Nội",
       googleMapsUrl: "https://maps.app.goo.gl/iKXrngru3EJx1hzd8",
       embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1081.6607707404046!2d105.62506169375344!3d20.986188516916233!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3134510055625b63%3A0xbb3bbea8b8b8746d!2zTmjDoCBWxINuIEjDs2EgVGjDtG4gUGjDuiBN4bu5!5e0!3m2!1svi!2s!4v1773806676251!5m2!1svi!2s",
+      portraitBelowMap: "/images/IMG_9118.JPG",
       // notes: "Có chỗ đậu xe. Vào cổng chính.",
       // image: "https://i.ibb.co/rKpjpGsx/9-BBD6-B37-690-D-433-F-8964-AF88165-A0532-1-105-c.jpg",
     },
