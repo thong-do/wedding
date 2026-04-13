@@ -175,11 +175,11 @@ export const weddingData: WeddingData = {
   timeline: [
     {
       time: "09:30",
-      bride: { title: "Đón khách, chụp ảnh" },
+      bride: { title: "Đón khách tại nhà gái" },
     },
     {
       time: "10:00",
-      bride: { title: "Ăn tiệc" },
+      bride: { title: "Ăn tiệc tại nhà gái" },
     },
     {
       time: "11:10",
@@ -187,19 +187,19 @@ export const weddingData: WeddingData = {
     },
     {
       time: "12:45",
-      bride: { title: "Làm lễ" },
+      bride: { title: "Làm lễ tại nhà gái" },
     },
     {
       time: "13:45",
-      groom: { title: "Di chuyển về nhà trai" },
+      bride: { title: "Di chuyển về nhà trai" },
     },
     {
       time: "15:30",
-      groom: { title: "Làm lễ" },
+      groom: { title: "Làm lễ tại nhà trai" },
     },
     {
       time: "16:30",
-      groom: { title: "Ăn tiệc" },
+      groom: { title: "Ăn tiệc tại nhà trai" },
     },
   ],
   venue: {
