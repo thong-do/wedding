@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { PhotoCollageThree } from "@/components/PhotoCollageThree";
 import { weddingData } from "@/data/wedding-data";
+import type { TimelineTag } from "@/data/wedding-data";
 
 function timelineCollageImages(): string[] {
   const own = weddingData.timelineImages?.filter(Boolean) ?? [];
@@ -16,10 +17,53 @@ function timelineCollageImages(): string[] {
   return weddingData.gallery.slice(0, 3);
 }
 
+function TimelineText({
+  tag,
+  align,
+}: {
+  tag?: TimelineTag;
+  align: "right" | "left";
+}) {
+  if (!tag) {
+    return <div className="min-h-[2.5rem] w-full max-w-[22rem]" aria-hidden />;
+  }
+  const side = align === "right" ? "items-end text-right" : "items-start text-left";
+  return (
+    <div
+      className={`flex max-w-[min(100%,22rem)] flex-col gap-1.5 ${side} sm:max-w-[min(100%,26rem)]`}
+    >
+      <p className="font-serif text-base font-light leading-snug tracking-[0.01em] text-stone-800 sm:text-[1.0625rem] md:text-lg">
+        {tag.title}
+      </p>
+      {tag.description ? (
+        <p className="max-w-prose font-serif text-[0.875rem] font-light leading-relaxed text-stone-600 sm:text-[0.9375rem]">
+          {tag.description}
+        </p>
+      ) : null}
+    </div>
+  );
+}
+
+const rowMinH = "min-h-[6.25rem] sm:min-h-[6.75rem]";
+
+const spineCol = "w-[6.75rem] shrink-0 sm:w-36";
+
+function timePlacement(row: { bride?: unknown; groom?: unknown }): "left" | "right" {
+  const hasBride = Boolean(row.bride);
+  const hasGroom = Boolean(row.groom);
+  if (hasGroom && !hasBride) return "left";
+  return "right";
+}
+
+const timeClassName =
+  "font-serif text-[0.8125rem] font-light tabular-nums tracking-[0.05em] text-stone-600 sm:text-sm";
+
 export function Timeline() {
-  const { timeline, labels } = weddingData;
+  const { timeline, labels, venue } = weddingData;
   const collageImages = useMemo(timelineCollageImages, []);
   const landscapeSrc = collageImages[2];
+  const brideLabel = venue.bride.label;
+  const groomLabel = venue.groom.label;
 
   return (
     <section
@@ -65,46 +109,122 @@ export function Timeline() {
           </motion.div>
         ) : null}
 
-        <div className="mt-12 grid gap-12 sm:mt-14 lg:grid-cols-2 lg:gap-16 lg:items-start">
-          <div>
-            {timeline.map((item, i) => (
-              <motion.div
-                key={item.time}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1, delay: i * 0.08 }}
-                className="relative flex gap-4 pb-10 last:pb-0 sm:gap-8 sm:pb-12"
-              >
-                {i < timeline.length - 1 && (
-                  <div className="absolute left-[11px] top-8 h-full w-px bg-stone-300" />
-                )}
-
-                <div className="relative z-10 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 border-amber-800/50 bg-stone-50">
-                  <div className="h-2 w-2 rounded-full bg-amber-800/80" />
-                </div>
-
-                <div className="flex-1 pt-0">
-                  <p className="font-mono text-sm font-medium text-amber-900/90">{item.time}</p>
-                  <h3 className="mt-1 font-serif text-xl text-stone-800">{item.title}</h3>
-                  {item.description && (
-                    <p className="mt-1 font-sans text-stone-600">{item.description}</p>
-                  )}
-                </div>
-              </motion.div>
-            ))}
+        <div className="mt-12 w-full sm:mt-14">
+          <div className="mb-6 flex items-end gap-2 border-b border-stone-200/90 pb-4 sm:gap-6">
+            <div className="min-w-0 flex-1 text-right font-serif text-[0.9375rem] font-light text-stone-700 sm:text-base">
+              {brideLabel}
+            </div>
+            <div className={spineCol} aria-hidden />
+            <div className="min-w-0 flex-1 text-left font-serif text-[0.9375rem] font-light text-stone-700 sm:text-base">
+              {groomLabel}
+            </div>
           </div>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 1.2, delay: 0.12 }}
-            className="lg:sticky lg:top-24"
-          >
-            <PhotoCollageThree images={collageImages} omitLandscape />
-          </motion.div>
+          <div className="flex gap-2 sm:gap-6">
+            <div className="flex min-w-0 flex-1 flex-col">
+              {timeline.map((row, i) => (
+                <motion.div
+                  key={`bride-${row.time}-${i}`}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-28px" }}
+                  transition={{
+                    duration: 0.9,
+                    delay: Math.min(i * 0.06, 0.42),
+                    ease: [0.22, 0.61, 0.36, 1],
+                  }}
+                  className={`flex items-center justify-end py-4 sm:py-5 ${rowMinH}`}
+                >
+                  <TimelineText tag={row.bride} align="right" />
+                </motion.div>
+              ))}
+            </div>
+
+            <div className={`relative ${spineCol}`}>
+              <div
+                className="pointer-events-none absolute left-1/2 top-3 bottom-3 w-0 -translate-x-1/2"
+                aria-hidden
+              >
+                <motion.div
+                  className="h-full w-[1.5px] rounded-full bg-gradient-to-b from-stone-300/85 via-stone-400/90 to-stone-300/85"
+                  initial={{ scaleY: 0 }}
+                  whileInView={{ scaleY: 1 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{
+                    duration: 1.2,
+                    ease: [0.22, 0.61, 0.36, 1],
+                  }}
+                  style={{ transformOrigin: "top center" }}
+                />
+              </div>
+              <div className="relative flex flex-col">
+                {timeline.map((row, i) => {
+                  const side = timePlacement(row);
+                  return (
+                    <div
+                      key={`spine-${row.time}-${i}`}
+                      className={`grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-x-1.5 py-4 sm:gap-x-2 sm:py-5 ${rowMinH}`}
+                    >
+                      <div className="flex min-w-0 justify-end pr-0.5 sm:pr-1">
+                        {side === "left" ? (
+                          <time dateTime={row.time} className={`${timeClassName} text-right`}>
+                            {row.time}
+                          </time>
+                        ) : null}
+                      </div>
+                      <div className="relative z-10 flex w-3 shrink-0 justify-center sm:w-3.5">
+                        <span
+                          className="block h-1.5 w-1.5 shrink-0 rounded-full bg-stone-700 ring-[4px] ring-stone-50 sm:h-2 sm:w-2 sm:ring-[5px]"
+                          aria-hidden
+                        />
+                      </div>
+                      <div className="flex min-w-0 justify-start pl-0.5 sm:pl-1">
+                        {side === "right" ? (
+                          <time dateTime={row.time} className={`${timeClassName} text-left`}>
+                            {row.time}
+                          </time>
+                        ) : null}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="flex min-w-0 flex-1 flex-col">
+              {timeline.map((row, i) => (
+                <motion.div
+                  key={`groom-${row.time}-${i}`}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-28px" }}
+                  transition={{
+                    duration: 0.9,
+                    delay: Math.min(i * 0.06, 0.42),
+                    ease: [0.22, 0.61, 0.36, 1],
+                  }}
+                  className={`flex items-center justify-start py-4 sm:py-5 ${rowMinH}`}
+                >
+                  <TimelineText tag={row.groom} align="left" />
+                </motion.div>
+              ))}
+            </div>
+          </div>
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 1, delay: 0.06, ease: [0.22, 0.61, 0.36, 1] }}
+          className="mt-12 w-full sm:mt-14"
+        >
+          <PhotoCollageThree
+            images={collageImages}
+            omitLandscape
+            portraitSizes="(max-width: 768px) 50vw, 36rem"
+          />
+        </motion.div>
       </div>
     </section>
   );

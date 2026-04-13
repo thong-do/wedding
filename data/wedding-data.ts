@@ -3,10 +3,16 @@
  * Edit this file to update names, dates, venue, text, and images
  */
 
-export interface TimelineItem {
-  time: string;
+/** One scheduled moment; tags appear in nhà gái / nhà trai columns. */
+export interface TimelineTag {
   title: string;
   description?: string;
+}
+
+export interface TimelineRow {
+  time: string;
+  bride?: TimelineTag;
+  groom?: TimelineTag;
 }
 
 export interface WeddingData {
@@ -56,7 +62,7 @@ export interface WeddingData {
     dressCode?: string;
     notes?: string;
   };
-  timeline: TimelineItem[];
+  timeline: TimelineRow[];
   venue: {
     bride: {
       label: string;
@@ -167,12 +173,34 @@ export const weddingData: WeddingData = {
     // notes: "Ăn trưa và tiệc tiếp theo",
   },
   timeline: [
-    { time: "11:10", title: "Bắt đầu đi đón dâu" },
-    { time: "12:45", title: "Làm lễ tại nhà gái" },
-    { time: "13:45", title: "Di chuyển về nhà trai" },
-    { time: "15:30", title: "Làm lễ tại nhà trai" },
-    { time: "16:30", title: "Ăn tiệc" },
-    { time: "18:30", title: "Giao lưu, chụp ảnh" },
+    {
+      time: "09:30",
+      bride: { title: "Đón khách, chụp ảnh" },
+    },
+    {
+      time: "10:00",
+      bride: { title: "Ăn tiệc" },
+    },
+    {
+      time: "11:10",
+      groom: { title: "Bắt đầu đi đón dâu" },
+    },
+    {
+      time: "12:45",
+      bride: { title: "Làm lễ" },
+    },
+    {
+      time: "13:45",
+      groom: { title: "Di chuyển về nhà trai" },
+    },
+    {
+      time: "15:30",
+      groom: { title: "Làm lễ" },
+    },
+    {
+      time: "16:30",
+      groom: { title: "Ăn tiệc" },
+    },
   ],
   venue: {
     bride: {
