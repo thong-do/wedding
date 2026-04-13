@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ChevronDown, MapPin, Calendar, Send } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { weddingData } from "@/data/wedding-data";
 
 export function Hero() {
@@ -56,21 +56,21 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 0.4 }}
-          className="max-w-4xl"
+          className="mx-auto w-full max-w-4xl text-center"
         >
-          <p className="mb-4 font-sans text-sm tracking-[0.3em] text-white/80 sm:mb-6 sm:text-base">
+          <p className="mb-4 font-sans text-base tracking-[0.3em] text-white/80 sm:mb-6 sm:text-lg">
             {weddingData.labels.ceremonialInvite}
           </p>
-          <h1 className="font-serif text-3xl font-light tracking-wide text-white drop-shadow-lg sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
-            <span className="block sm:inline">{weddingData.couple.bride}</span>
-            <span className="mx-2 sm:mx-3 text-amber-200/90">×</span>
-            <span className="block sm:inline">{weddingData.couple.groom}</span>
+          <h1 className="flex max-w-full flex-nowrap items-baseline justify-center gap-x-2 font-serif text-2xl font-light tracking-wide text-white drop-shadow-lg sm:gap-x-3 sm:text-4xl md:text-5xl lg:text-6xl">
+            <span className="whitespace-nowrap">{weddingData.couple.bride}</span>
+            <span className="shrink-0 text-amber-200/90">×</span>
+            <span className="whitespace-nowrap">{weddingData.couple.groom}</span>
           </h1>
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.9 }}
-            className="mt-4 font-sans text-lg tracking-widest text-white/90 sm:text-xl"
+            className="mt-5 font-sans text-xl tracking-widest text-white/90 sm:mt-6 sm:text-2xl"
           >
             {weddingData.date}
           </motion.p>
@@ -78,39 +78,10 @@ export function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 1.1 }}
-            className="mt-2 font-serif text-base italic text-amber-100/90 sm:text-lg"
+            className="mt-3 font-serif text-lg italic text-amber-100/90 sm:mt-4 sm:text-xl"
           >
             {weddingData.hero.tagline}
           </motion.p>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.4 }}
-          className="mt-10 flex flex-col items-center gap-3 px-2 sm:mt-14 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-4"
-        >
-          <button
-            onClick={() => scrollToSection("details")}
-            className="flex min-h-[44px] w-full min-w-[140px] max-w-[280px] items-center justify-center gap-2 rounded-full border border-white/50 bg-white/5 px-6 py-3 font-sans text-sm tracking-wide text-white backdrop-blur-sm transition-all duration-300 hover:bg-white/15 hover:border-white/60 sm:w-auto sm:max-w-none active:bg-white/20"
-          >
-            <Calendar size={18} />
-            {weddingData.hero.cta.details}
-          </button>
-          <button
-            onClick={() => scrollToSection("venue")}
-            className="flex min-h-[44px] w-full min-w-[140px] max-w-[280px] items-center justify-center gap-2 rounded-full border border-white/50 bg-white/5 px-6 py-3 font-sans text-sm tracking-wide text-white backdrop-blur-sm transition-all duration-300 hover:bg-white/15 hover:border-white/60 sm:w-auto sm:max-w-none active:bg-white/20"
-          >
-            <MapPin size={18} />
-            {weddingData.hero.cta.location}
-          </button>
-          <button
-            onClick={() => scrollToSection("rsvp")}
-            className="flex min-h-[44px] w-full min-w-[140px] max-w-[280px] items-center justify-center gap-2 rounded-full bg-amber-900/70 px-6 py-3 font-sans text-sm tracking-wide text-white backdrop-blur-sm transition-all duration-300 hover:bg-amber-800/80 sm:w-auto sm:max-w-none active:bg-amber-800/90"
-          >
-            <Send size={18} />
-            {weddingData.hero.cta.rsvp}
-          </button>
         </motion.div>
       </div>
 

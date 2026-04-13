@@ -235,7 +235,7 @@ export const weddingData: WeddingData = {
   calendar: {
     weddingDateIso: "2026-04-26",
     detailImages: [
-      "/images/9CA767CD-6164-4CF4-B3C9-ABDCC7AD7923_1_105_c.jpeg",
+      "/images/03B4DDC7-2DB6-4EBF-9D1F-3040718E3C6C_1_105_c.jpeg",
       "/images/C1BAFE96-38CD-48A1-B860-909A9898D3B9_1_105_c.jpeg",
     ],
   },
@@ -268,9 +268,9 @@ export const weddingData: WeddingData = {
   ending: {
     thankYou: "Cảm ơn vì đã ở đây cùng chúng mình.",
     finalLine: "Hẹn gặp bạn ở nhà gái và nhà trai — nơi câu chuyện của chúng mình bắt đầu.",
-    image: "/images/79B82376-97D1-49E4-A10A-8FD0B6AFAAD1_1_105_c.jpeg",
+    image: "/images/16BED593-0EDD-468C-B643-2BE71202014F_1_201_a.jpeg",
   },
-   emotionalHighlightImage: "https://i.ibb.co/35mBDVGm/43331963-D9-A6-402-C-9640-4-F4847-D48778-1-201-a.jpg",
+  emotionalHighlightImage: "https://i.ibb.co/35mBDVGm/43331963-D9-A6-402-C-9640-4-F4847-D48778-1-201-a.jpg",
   backgroundMusic: {
     title: "漫步香港1999",
     src: "/music/manbu-xianggang-1999.mp3",
