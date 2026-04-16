@@ -21,7 +21,7 @@ const initialFormData: FormData = {
   phone: "",
   attendance: "",
   transport: "",
-  guests: "1",
+  guests: "0",
   notes: "",
 };
 
