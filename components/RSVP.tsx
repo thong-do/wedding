@@ -250,7 +250,7 @@ export function RSVP() {
                   name="attendance"
                   checked={formData.attendance === "yes"}
                   onChange={() => setFormData({ ...formData, attendance: "yes" })}
-                  className="h-5 w-5 shrink-0 text-amber-800 focus:ring-amber-800"
+                  className="h-5 w-5 shrink-0 accent-amber-900 focus:ring-amber-900/30"
                 />
                 <span className="font-sans text-stone-700">Có, mình sẽ đến</span>
               </label>
@@ -260,7 +260,7 @@ export function RSVP() {
                   name="attendance"
                   checked={formData.attendance === "no"}
                   onChange={() => setFormData({ ...formData, attendance: "no" })}
-                  className="h-5 w-5 shrink-0 text-amber-800 focus:ring-amber-800"
+                  className="h-5 w-5 shrink-0 accent-amber-900 focus:ring-amber-900/30"
                 />
                 <span className="font-sans text-stone-700">Tiếc quá, mình không đi được</span>
               </label>
@@ -281,7 +281,7 @@ export function RSVP() {
                   name="transport"
                   checked={formData.transport === "family"}
                   onChange={() => setFormData({ ...formData, transport: "family" })}
-                  className="h-5 w-5 shrink-0 text-amber-800 focus:ring-amber-800"
+                  className="h-5 w-5 shrink-0 accent-amber-900 focus:ring-amber-900/30"
                 />
                 <span className="font-sans text-stone-700">Đi cùng xe gia đình sắp xếp</span>
               </label>
@@ -291,7 +291,7 @@ export function RSVP() {
                   name="transport"
                   checked={formData.transport === "self"}
                   onChange={() => setFormData({ ...formData, transport: "self" })}
-                  className="h-5 w-5 shrink-0 text-amber-800 focus:ring-amber-800"
+                  className="h-5 w-5 shrink-0 accent-amber-900 focus:ring-amber-900/30"
                 />
                 <span className="font-sans text-stone-700">Tự di chuyển</span>
               </label>

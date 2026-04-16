@@ -30,7 +30,7 @@ function validate(body: Partial<Body>): { ok: true; data: Body } | { ok: false; 
   const phone = sanitize(String(body.phone ?? ""), MAX_PHONE);
   const attendance = body.attendance;
   const transport = body.transport;
-  const guests = String(body.guests ?? "1").trim();
+  const guests = String(body.guests ?? "0").trim();
   const notes = sanitize(String(body.notes ?? ""), MAX_NOTES);
 
   if (!name) return { ok: false, message: "Tên là bắt buộc." };
@@ -43,7 +43,7 @@ function validate(body: Partial<Body>): { ok: true; data: Body } | { ok: false; 
   }
 
   const guestNum = Number.parseInt(guests, 10);
-  if (!Number.isFinite(guestNum) || guestNum < 1 || guestNum > 10) {
+  if (!Number.isFinite(guestNum) || guestNum < 0 || guestNum > 10) {
     return { ok: false, message: "Số khách không hợp lệ." };
   }
 
