@@ -5,11 +5,13 @@ const MAX_NAME = 120;
 const MAX_PHONE = 32;
 
 type Attendance = "yes" | "no";
+type Transport = "family" | "self";
 
 interface Body {
   name: string;
   phone: string;
   attendance: Attendance;
+  transport: Transport;
   guests: string;
   notes: string;
   website?: string;
@@ -27,6 +29,7 @@ function validate(body: Partial<Body>): { ok: true; data: Body } | { ok: false; 
   const name = sanitize(String(body.name ?? ""), MAX_NAME);
   const phone = sanitize(String(body.phone ?? ""), MAX_PHONE);
   const attendance = body.attendance;
+  const transport = body.transport;
   const guests = String(body.guests ?? "1").trim();
   const notes = sanitize(String(body.notes ?? ""), MAX_NOTES);
 
@@ -34,6 +37,9 @@ function validate(body: Partial<Body>): { ok: true; data: Body } | { ok: false; 
   if (!phone) return { ok: false, message: "Số điện thoại là bắt buộc." };
   if (attendance !== "yes" && attendance !== "no") {
     return { ok: false, message: "Vui lòng chọn có tham dự hay không." };
+  }
+  if (transport !== "family" && transport !== "self") {
+    return { ok: false, message: "Vui lòng chọn phương tiện di chuyển." };
   }
 
   const guestNum = Number.parseInt(guests, 10);
@@ -47,6 +53,7 @@ function validate(body: Partial<Body>): { ok: true; data: Body } | { ok: false; 
       name,
       phone,
       attendance,
+      transport,
       guests: String(guestNum),
       notes,
     },

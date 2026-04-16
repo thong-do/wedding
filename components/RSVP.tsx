@@ -11,6 +11,7 @@ interface FormData {
   name: string;
   phone: string;
   attendance: "yes" | "no" | "";
+  transport: "family" | "self" | "";
   guests: string;
   notes: string;
 }
@@ -19,6 +20,7 @@ const initialFormData: FormData = {
   name: "",
   phone: "",
   attendance: "",
+  transport: "",
   guests: "1",
   notes: "",
 };
@@ -39,6 +41,7 @@ export function RSVP() {
     if (!formData.name.trim()) newErrors.name = "Bạn điền tên giúp mình nhé";
     if (!formData.phone.trim()) newErrors.phone = "Và số điện thoại nữa nhé";
     if (!formData.attendance) newErrors.attendance = "Cho mình biết bạn có đến không nhé";
+    if (!formData.transport) newErrors.transport = "Chọn giúp mình phương tiện di chuyển nhé";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -58,6 +61,7 @@ export function RSVP() {
           name: formData.name,
           phone: formData.phone,
           attendance: formData.attendance,
+          transport: formData.transport,
           guests: formData.guests,
           notes: formData.notes,
           website: honeypot,
@@ -267,6 +271,37 @@ export function RSVP() {
           </div>
 
           <div>
+            <label className="block font-sans text-sm font-medium text-stone-700">
+              Phương tiện di chuyển
+            </label>
+            <div className="mt-2 flex flex-col gap-3 sm:flex-row sm:gap-4">
+              <label className="flex min-h-[44px] cursor-pointer items-center gap-3 rounded-2xl border border-stone-200/80 bg-white/60 px-4 py-3 has-[:checked]:border-amber-800/40 has-[:checked]:bg-amber-50/40 sm:border-0 sm:bg-transparent sm:py-0">
+                <input
+                  type="radio"
+                  name="transport"
+                  checked={formData.transport === "family"}
+                  onChange={() => setFormData({ ...formData, transport: "family" })}
+                  className="h-5 w-5 shrink-0 text-amber-800 focus:ring-amber-800"
+                />
+                <span className="font-sans text-stone-700">Đi cùng xe gia đình sắp xếp</span>
+              </label>
+              <label className="flex min-h-[44px] cursor-pointer items-center gap-3 rounded-2xl border border-stone-200/80 bg-white/60 px-4 py-3 has-[:checked]:border-amber-800/40 has-[:checked]:bg-amber-50/40 sm:border-0 sm:bg-transparent sm:py-0">
+                <input
+                  type="radio"
+                  name="transport"
+                  checked={formData.transport === "self"}
+                  onChange={() => setFormData({ ...formData, transport: "self" })}
+                  className="h-5 w-5 shrink-0 text-amber-800 focus:ring-amber-800"
+                />
+                <span className="font-sans text-stone-700">Tự di chuyển</span>
+              </label>
+            </div>
+            {errors.transport && (
+              <p className="mt-1 text-sm text-amber-800/80">{errors.transport}</p>
+            )}
+          </div>
+
+          <div>
             <label htmlFor="guests" className="block font-sans text-sm font-medium text-stone-700">
               Số người đi cùng (nếu có)
             </label>
@@ -276,9 +311,9 @@ export function RSVP() {
               onChange={(e) => setFormData({ ...formData, guests: e.target.value })}
               className="mt-2 w-full rounded-2xl border border-stone-200 bg-white/80 px-5 py-3 font-sans text-stone-800 focus:border-amber-800/40 focus:outline-none focus:ring-1 focus:ring-amber-800/20"
             >
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => (
+              {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => (
                 <option key={n} value={n}>
-                  {n === 10 ? "10+" : n}
+                  {n === 0 ? "Không có" : n === 10 ? "10+" : n}
                 </option>
               ))}
             </select>

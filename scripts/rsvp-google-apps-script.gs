@@ -28,6 +28,7 @@ function doPost(e) {
         "Tên",
         "Điện thoại",
         "Tham dự",
+        "Phương tiện di chuyển",
         "Số khách",
         "Lời chúc",
       ]);
@@ -39,12 +40,19 @@ function doPost(e) {
         : data.attendance === "no"
           ? "Không"
           : String(data.attendance || "");
+    var transport =
+      data.transport === "family"
+        ? "Đi cùng xe gia đình sắp xếp"
+        : data.transport === "self"
+          ? "Tự di chuyển"
+          : String(data.transport || "");
 
     sheet.appendRow([
       new Date(),
       data.name || "",
       data.phone || "",
       attendance,
+      transport,
       data.guests || "",
       data.notes || "",
     ]);
