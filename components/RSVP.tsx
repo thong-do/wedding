@@ -41,7 +41,9 @@ export function RSVP() {
     if (!formData.name.trim()) newErrors.name = "Bạn điền tên giúp mình nhé";
     if (!formData.phone.trim()) newErrors.phone = "Và số điện thoại nữa nhé";
     if (!formData.attendance) newErrors.attendance = "Cho mình biết bạn có đến không nhé";
-    if (!formData.transport) newErrors.transport = "Chọn giúp mình phương tiện di chuyển nhé";
+    if (formData.attendance === "yes" && !formData.transport) {
+      newErrors.transport = "Chọn giúp mình phương tiện di chuyển nhé";
+    }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -61,7 +63,7 @@ export function RSVP() {
           name: formData.name,
           phone: formData.phone,
           attendance: formData.attendance,
-          transport: formData.transport,
+          transport: formData.attendance === "yes" ? formData.transport : "",
           guests: formData.guests,
           notes: formData.notes,
           website: honeypot,
@@ -249,7 +251,10 @@ export function RSVP() {
                   type="radio"
                   name="attendance"
                   checked={formData.attendance === "yes"}
-                  onChange={() => setFormData({ ...formData, attendance: "yes" })}
+                  onChange={() => {
+                    setFormData({ ...formData, attendance: "yes" });
+                    setErrors((e) => ({ ...e, transport: undefined }));
+                  }}
                   className="h-5 w-5 shrink-0 accent-amber-900 focus:ring-amber-900/30"
                 />
                 <span className="font-sans text-stone-700">Có, mình sẽ đến</span>
@@ -259,7 +264,10 @@ export function RSVP() {
                   type="radio"
                   name="attendance"
                   checked={formData.attendance === "no"}
-                  onChange={() => setFormData({ ...formData, attendance: "no" })}
+                  onChange={() => {
+                    setFormData({ ...formData, attendance: "no", transport: "" });
+                    setErrors((e) => ({ ...e, transport: undefined }));
+                  }}
                   className="h-5 w-5 shrink-0 accent-amber-900 focus:ring-amber-900/30"
                 />
                 <span className="font-sans text-stone-700">Tiếc quá, mình không đi được</span>
@@ -270,36 +278,38 @@ export function RSVP() {
             )}
           </div>
 
-          <div>
-            <label className="block font-sans text-sm font-medium text-stone-700">
-              Phương tiện di chuyển
-            </label>
-            <div className="mt-2 flex flex-col gap-3 sm:flex-row sm:gap-4">
-              <label className="flex min-h-[44px] cursor-pointer items-center gap-3 rounded-2xl border border-stone-200/80 bg-white/60 px-4 py-3 has-[:checked]:border-amber-800/40 has-[:checked]:bg-amber-50/40 sm:border-0 sm:bg-transparent sm:py-0">
-                <input
-                  type="radio"
-                  name="transport"
-                  checked={formData.transport === "family"}
-                  onChange={() => setFormData({ ...formData, transport: "family" })}
-                  className="h-5 w-5 shrink-0 accent-amber-900 focus:ring-amber-900/30"
-                />
-                <span className="font-sans text-stone-700">Đi cùng xe gia đình sắp xếp</span>
+          {formData.attendance === "yes" ? (
+            <div>
+              <label className="block font-sans text-sm font-medium text-stone-700">
+                Phương tiện di chuyển
               </label>
-              <label className="flex min-h-[44px] cursor-pointer items-center gap-3 rounded-2xl border border-stone-200/80 bg-white/60 px-4 py-3 has-[:checked]:border-amber-800/40 has-[:checked]:bg-amber-50/40 sm:border-0 sm:bg-transparent sm:py-0">
-                <input
-                  type="radio"
-                  name="transport"
-                  checked={formData.transport === "self"}
-                  onChange={() => setFormData({ ...formData, transport: "self" })}
-                  className="h-5 w-5 shrink-0 accent-amber-900 focus:ring-amber-900/30"
-                />
-                <span className="font-sans text-stone-700">Tự di chuyển</span>
-              </label>
+              <div className="mt-2 flex flex-col gap-3 sm:flex-row sm:gap-4">
+                <label className="flex min-h-[44px] cursor-pointer items-center gap-3 rounded-2xl border border-stone-200/80 bg-white/60 px-4 py-3 has-[:checked]:border-amber-800/40 has-[:checked]:bg-amber-50/40 sm:border-0 sm:bg-transparent sm:py-0">
+                  <input
+                    type="radio"
+                    name="transport"
+                    checked={formData.transport === "family"}
+                    onChange={() => setFormData({ ...formData, transport: "family" })}
+                    className="h-5 w-5 shrink-0 accent-amber-900 focus:ring-amber-900/30"
+                  />
+                  <span className="font-sans text-stone-700">Đi cùng xe gia đình sắp xếp</span>
+                </label>
+                <label className="flex min-h-[44px] cursor-pointer items-center gap-3 rounded-2xl border border-stone-200/80 bg-white/60 px-4 py-3 has-[:checked]:border-amber-800/40 has-[:checked]:bg-amber-50/40 sm:border-0 sm:bg-transparent sm:py-0">
+                  <input
+                    type="radio"
+                    name="transport"
+                    checked={formData.transport === "self"}
+                    onChange={() => setFormData({ ...formData, transport: "self" })}
+                    className="h-5 w-5 shrink-0 accent-amber-900 focus:ring-amber-900/30"
+                  />
+                  <span className="font-sans text-stone-700">Tự di chuyển</span>
+                </label>
+              </div>
+              {errors.transport && (
+                <p className="mt-1 text-sm text-amber-800/80">{errors.transport}</p>
+              )}
             </div>
-            {errors.transport && (
-              <p className="mt-1 text-sm text-amber-800/80">{errors.transport}</p>
-            )}
-          </div>
+          ) : null}
 
           <div>
             <label htmlFor="guests" className="block font-sans text-sm font-medium text-stone-700">
